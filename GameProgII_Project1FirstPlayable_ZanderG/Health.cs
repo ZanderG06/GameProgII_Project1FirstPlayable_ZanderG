@@ -8,5 +8,11 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 {
     internal class Health
     {
+        public int health;
+
+        public Health(int hp)
+        {
+            health = hp;
+        }
     }
 }

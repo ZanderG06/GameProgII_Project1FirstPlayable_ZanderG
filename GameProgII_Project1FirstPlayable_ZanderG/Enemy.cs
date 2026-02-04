@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameProgII_Project1FirstPlayable_ZanderG
 {
-    internal class Enemy
+    internal class Enemy : Health
     {
     }
 }

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace GameProgII_Project1FirstPlayable_ZanderG
 {
-    internal class Player
+    //Made Player and Enemy inherit from Health Class, hope that's right
+    internal class Player : Health
     {
     }
 }

@@ -10,7 +10,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
     internal class Map
     {
         //Making a list of 5 gold on the map, I want the locations to be random
-        List<(int,int)> gold = new List<(int,int)>();
+        static List<(int,int)> gold = new List<(int,int)>();
         int amountOfGold = 5;
         Random random = new Random();
         
@@ -27,11 +27,16 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
         {
             for(int i = 0; i < amountOfGold; i++)
             {
-                int randomX = random.Next(18);
-                int randomY = random.Next(12);
+                int randomX = random.Next(mapLength);
+                int randomY = random.Next(mapHeight);
 
+                //Makes sure gold is actually accessible
+                if(mapInGame[randomX][randomY] != '*')
+                {
+                    i--;
+                    continue;
+                }
                 gold.Add((randomX, randomY));
-                //Will have to check for inaccessable gold
             }
 
             PrintMap();
@@ -41,7 +46,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
         {
             Console.SetCursorPosition(0,0);
 
-            //The +2 is just for the corners
+            //The +2 is just for the corners, hope it doesn't count as magic number :D
             for (int i = 0; i < mapHeight + 2; i++) Console.Write('░');
             Console.Write("\n");
 
@@ -75,6 +80,14 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 Console.Write("\n");
             }
             for(int i = 0; i < mapHeight + 2; i++) Console.Write('░');
+
+            foreach((int x, int y) in gold)
+            {
+                Console.SetCursorPosition(y + 1, x + 1);
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write('$');
+                Console.ResetColor();
+            }
 
             PrintHUD();
         }

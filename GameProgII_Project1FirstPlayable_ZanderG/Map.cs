@@ -16,10 +16,10 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
         
         //Gets path of map file then makes array
         static string mapLayout = "mapFile.txt";
-        string[] mapInGame = File.ReadAllLines(mapLayout);
+        static string[] mapInGame = File.ReadAllLines(mapLayout);
 
-        //Will probably have to call this something else to call it in main, unless I'm stupid
-        public Map()
+        //Will probably have to call this something else. What do I call it :c
+        public void BeginMapProcess()
         {
             for(int i = 0; i < amountOfGold; i++)
             {
@@ -29,6 +29,52 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 gold.Add((randomX, randomY));
                 //Will have to check for inaccessable gold
             }
+
+            PrintMap();
+        }
+
+        static void PrintMap()
+        {
+            Console.SetCursorPosition(0,0);
+
+            //I don't really think I have to do this, but it's easier on my brain to read
+            int mapLength = mapInGame.Length;
+            int mapHeight = mapInGame[0].Length;
+
+            //The +2 is just for the corners
+            for (int i = 0; i < mapHeight + 2; i++) Console.Write('░');
+            Console.Write("\n");
+
+            for(int i = 0; i < mapLength; i++)
+            {
+                Console.Write('░');
+                for(int j = 0; j < mapHeight; j++)
+                {
+                    if(mapInGame[i][j] == '*')
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                    }
+                    else if(mapInGame[i][j] == '~')
+                    {
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                    }
+                    else if(mapInGame[i][j] == '@')
+                    {
+                        //Will probably change (ew ew ew ugly)
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                    }
+
+                    Console.Write(mapInGame[i][j]);
+                    Console.ResetColor();
+                }
+                Console.Write('░');
+                Console.Write("\n");
+            }
+            for(int i = 0; i < mapHeight + 2; i++) Console.Write('░');
         }
     }
 }

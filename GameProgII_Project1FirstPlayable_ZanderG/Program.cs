@@ -10,6 +10,9 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
     {
         static void Main(string[] args)
         {
+            Map map = new Map();
+
+            map.BeginMapProcess();
         }
     }
 }

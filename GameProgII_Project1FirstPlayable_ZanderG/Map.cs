@@ -18,6 +18,10 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
         static string mapLayout = "mapFile.txt";
         static string[] mapInGame = File.ReadAllLines(mapLayout);
 
+        //I don't really think I have to do this, but it's easier on my brain to read
+        static int mapLength = mapInGame.Length;
+        static int mapHeight = mapInGame[0].Length;
+
         //Will probably have to call this something else. What do I call it :c
         public void BeginMapProcess()
         {
@@ -36,10 +40,6 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
         static void PrintMap()
         {
             Console.SetCursorPosition(0,0);
-
-            //I don't really think I have to do this, but it's easier on my brain to read
-            int mapLength = mapInGame.Length;
-            int mapHeight = mapInGame[0].Length;
 
             //The +2 is just for the corners
             for (int i = 0; i < mapHeight + 2; i++) Console.Write('░');
@@ -75,6 +75,14 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 Console.Write("\n");
             }
             for(int i = 0; i < mapHeight + 2; i++) Console.Write('░');
+
+            PrintHUD();
+        }
+
+        static void PrintHUD()
+        {
+            Console.SetCursorPosition(0, mapLength+3);
+            Console.Write("HUD:");
         }
     }
 }

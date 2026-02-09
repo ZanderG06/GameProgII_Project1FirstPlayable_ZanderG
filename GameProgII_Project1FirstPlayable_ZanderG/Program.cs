@@ -13,6 +13,8 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             Map map = new Map();
 
             map.BeginMapProcess();
+            map.PrintMap();
+            map.PrintHUD();
         }
     }
 }

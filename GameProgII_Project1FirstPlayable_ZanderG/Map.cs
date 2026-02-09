@@ -27,8 +27,9 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
         {
             for(int i = 0; i < amountOfGold; i++)
             {
-                int randomX = random.Next(mapLength);
-                int randomY = random.Next(mapHeight);
+                //The 1s are just so the gold doesn't spawn near the walls, I want all the gold to be near the middle
+                int randomX = random.Next(1, mapLength-1);
+                int randomY = random.Next(1, mapHeight-1);
 
                 //Makes sure gold is actually accessible
                 if(mapInGame[randomX][randomY] != '*')
@@ -36,13 +37,20 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     i--;
                     continue;
                 }
+                //This loop prevents gold from spawning on top of eachother
+                for(int j = 0; j < i; j++)
+                {
+                    if(gold.Equals((randomX, randomY)))
+                    {
+                        i--;
+                        break;
+                    }
+                }
                 gold.Add((randomX, randomY));
             }
-
-            PrintMap();
         }
 
-        static void PrintMap()
+        public void PrintMap()
         {
             Console.SetCursorPosition(0,0);
 
@@ -88,12 +96,11 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 Console.Write('$');
                 Console.ResetColor();
             }
-
-            PrintHUD();
         }
 
-        static void PrintHUD()
+        public void PrintHUD()
         {
+            //+3 is so there's spacing
             Console.SetCursorPosition(0, mapLength+3);
             Console.Write("HUD:");
         }

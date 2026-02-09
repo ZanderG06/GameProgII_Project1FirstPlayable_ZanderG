@@ -14,6 +14,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 
             map.BeginMapProcess();
             map.PrintMap();
+            map.SpawnPlayers();
             map.PrintHUD();
         }
     }

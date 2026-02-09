@@ -10,6 +10,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
     {
         //Is this what you mean by Composition
         public Health _health;
+        
         public int _posX;
         public int _posY;
 

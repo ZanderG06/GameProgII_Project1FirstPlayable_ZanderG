@@ -9,6 +9,11 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 {
     internal class Map
     {
+        //Adding player and enemy here, think that's the correct way. Movement will be handled within Player and Enemy class
+        Player player = new Player(health: new Health(10), posX: 0, posY: 0);
+        Enemy enemy = new Enemy(health: new Health(6), posX: mapLength, posY: mapHeight); //Puts enemy1 in corner
+        Enemy enemy2 = new Enemy(health: new Health(6), posX: 0, posY: mapHeight);
+
         //Making a list of 5 gold on the map, I want the locations to be random
         static List<(int,int)> gold = new List<(int,int)>();
         int amountOfGold = 5;
@@ -48,6 +53,12 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 }
                 gold.Add((randomX, randomY));
             }
+        }
+
+        public void SpawnPlayers()
+        {
+            Console.SetCursorPosition(player._posX+1, player._posY+1);
+            Console.Write('P');
         }
 
         public void PrintMap()

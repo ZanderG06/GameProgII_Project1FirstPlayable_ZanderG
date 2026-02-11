@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace GameProgII_Project1FirstPlayable_ZanderG
 {
-    internal class Enemy
+    internal class Enemy : Health
     {
         public Health _health;
         public int _posX;
         public int _posY;
 
-        public Enemy(Health health, int posX, int posY)
+        public Enemy(int hp, int posX, int posY) : base(hp)
         {
-            _health = health;
+            _health = new Health(hp);
             _posX = posX;
             _posY = posY;
         }

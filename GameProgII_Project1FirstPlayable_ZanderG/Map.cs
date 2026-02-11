@@ -9,11 +9,6 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 {
     internal class Map
     {
-        //Adding player and enemy here, think that's the correct way. Movement will be handled within Player and Enemy class
-        Player player = new Player(health: new Health(10), posX: 0, posY: 0);
-        Enemy enemy = new Enemy(health: new Health(6), posX: mapLength, posY: mapHeight); //Puts enemy1 in corner
-        Enemy enemy2 = new Enemy(health: new Health(6), posX: 0, posY: mapHeight);
-
         //Making a list of 5 gold on the map, I want the locations to be random
         static List<(int,int)> gold = new List<(int,int)>();
         int amountOfGold = 5;
@@ -26,6 +21,11 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
         //I don't really think I have to do this, but it's easier on my brain to read
         static int mapLength = mapInGame.Length;
         static int mapHeight = mapInGame[0].Length;
+
+        //Adding player and enemy here, think that's the correct way. Movement will be handled within Player and Enemy class
+        Player player = new Player(hp: 10, posX: 0, posY: 0);
+        Enemy enemy = new Enemy(hp: 6, posX: mapHeight, posY: mapLength); //Puts enemy1 in corner
+        Enemy enemy2 = new Enemy(hp: 6, posX: 0, posY: mapLength);
 
         //Will probably have to call this something else. What do I call it :c
         public void BeginMapProcess()
@@ -57,8 +57,28 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 
         public void SpawnPlayers()
         {
-            Console.SetCursorPosition(player._posX+1, player._posY+1);
-            Console.Write('P');
+            //Player, if statement makes sure player/enemies are alive before drawing
+            if(player.health > 0)
+            {
+                Console.SetCursorPosition(player._posX + 1, player._posY + 1);
+                Console.Write('&');
+            }
+
+            //First enemy
+            if(enemy.health > 0)
+            {
+                Console.SetCursorPosition(enemy._posX, enemy._posY);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine('#');
+            }
+
+            //Second enemy
+            if (enemy2.health > 0)
+            {
+                Console.SetCursorPosition(enemy2._posX+1, enemy2._posY);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine('#');
+            }
         }
 
         public void PrintMap()

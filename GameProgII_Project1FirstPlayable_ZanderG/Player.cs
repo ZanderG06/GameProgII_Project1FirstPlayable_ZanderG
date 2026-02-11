@@ -6,17 +6,15 @@ using System.Threading.Tasks;
 
 namespace GameProgII_Project1FirstPlayable_ZanderG
 {
-    internal class Player
+    internal class Player : Health
     {
-        //Is this what you mean by Composition
         public Health _health;
-        
         public int _posX;
         public int _posY;
 
-        public Player(Health health, int posX, int posY)
+        public Player(int hp, int posX, int posY) : base(hp)
         {
-            _health = health;
+            _health = new Health(hp);
             _posX = posX;
             _posY = posY;
         }

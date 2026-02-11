@@ -8,33 +8,32 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 {
     internal class Program
     {
-        static Map map = new Map();
-        static bool isPlaying = true;
-
-        //Adding player and enemy here, think that's the correct way. Movement will be handled within Player and Enemy class
-        static Player player = new Player(hp: 10, posX: 0, posY: 0);
-        static Enemy enemy = new Enemy(hp: 6, posX: map.mapHeight, posY: map.mapLength); //Puts enemy1 in corner
-        static Enemy enemy2 = new Enemy(hp: 6, posX: 0, posY: map.mapLength);
-
         static void Main(string[] args)
         {
+            Map map = new Map();
+
+            //Adding player and enemy here, think that's the correct way. Movement will be handled within Player and Enemy class
+            Player player = new Player(hp: 10, posX: 0, posY: 0);
+            Enemy enemy = new Enemy(hp: 6, posX: map.mapHeight, posY: map.mapLength); //Puts enemy1 in corner
+            Enemy enemy2 = new Enemy(hp: 6, posX: 0, posY: map.mapLength);
+
+            bool isPlaying = true;
             map.CreateGold();
             map.PrintMap();
-            DrawPlayers();
+            DrawPlayers(player, enemy, enemy2);
             map.PrintHUD();
 
             while(isPlaying)
             {
-
                 ConsoleKey playerInput = Console.ReadKey(true).Key;
 
                 player.MovePlayer(playerInput);
                 map.PrintMap();
-                DrawPlayers();
+                DrawPlayers(player, enemy, enemy2);
             }
         }
 
-        static void DrawPlayers()
+        static void DrawPlayers(Player player, Enemy enemy, Enemy enemy2)
         {
             //Player, if statement makes sure player/enemies are alive before drawing
             if (player.health > 0)

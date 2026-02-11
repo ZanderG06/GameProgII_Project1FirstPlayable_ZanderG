@@ -9,11 +9,8 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 {
     internal class Map
     {
-        //Making a list of 5 gold on the map, I want the locations to be random
-        static List<(int,int)> gold = new List<(int,int)>();
-        int amountOfGold = 5;
-        Random random = new Random();
-        
+        public List<(int, int)> gold = new List<(int, int)>();
+
         //Gets path of map file then makes array
         static string mapLayout = "mapFile.txt";
         static string[] mapInGame = File.ReadAllLines(mapLayout);
@@ -22,11 +19,12 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
         public int mapLength = mapInGame.Length;
         public int mapHeight = mapInGame[0].Length;
 
-        
-
         public void CreateGold()
         {
-            for(int i = 0; i < amountOfGold; i++)
+            int amountOfGold = 5;
+            Random random = new Random();
+
+            for (int i = 0; i < amountOfGold; i++)
             {
                 //The 1s are just so the gold doesn't spawn near the walls, I want all the gold to be near the middle
                 int randomX = random.Next(1, mapLength-1);

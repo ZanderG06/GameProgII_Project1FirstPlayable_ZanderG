@@ -13,11 +13,12 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 
         //Gets path of map file then makes array
         static string mapLayout = "mapFile.txt";
-        static string[] mapInGame = File.ReadAllLines(mapLayout);
+        public string[] mapInGame = File.ReadAllLines(mapLayout);
 
         //I don't really think I have to do this, but it's easier on my brain to read
-        public int mapLength = mapInGame.Length;
-        public int mapHeight = mapInGame[0].Length;
+        public int mapLength { get { return mapInGame.Length;} }
+        
+        public int mapHeight { get { return mapInGame[0].Length;} }
 
         public void CreateGold()
         {
@@ -26,7 +27,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 
             for (int i = 0; i < amountOfGold; i++)
             {
-                //The 1s are just so the gold doesn't spawn near the walls, I want all the gold to be near the middle
+                //The -1s are just so the gold doesn't spawn near the walls, I want all the gold to be near the middle
                 int randomX = random.Next(1, mapLength-1);
                 int randomY = random.Next(1, mapHeight-1);
 

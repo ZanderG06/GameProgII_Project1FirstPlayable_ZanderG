@@ -13,9 +13,9 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             Map map = new Map();
 
             //Adding player and enemy here, think that's the correct way. Movement will be handled within Player and Enemy class
-            Player player = new Player(hp: 10, posX: 0, posY: 0, gameMap: map);
-            Enemy enemy = new Enemy(hp: 6, posX: map.mapHeight, posY: map.mapLength); //Puts enemy1 in corner
-            Enemy enemy2 = new Enemy(hp: 6, posX: 0, posY: map.mapLength);
+            Player player = new Player(hp: 10, posX: 0, posY: 0, damage: 1, gameMap: map);
+            Enemy enemy = new Enemy(hp: 6, posX: map.mapHeight, posY: map.mapLength, damage: 1); //Puts enemy1 in corner
+            Enemy enemy2 = new Enemy(hp: 6, posX: 0, posY: map.mapLength, damage: 1);
 
             bool isPlaying = true;
             map.CreateGold();

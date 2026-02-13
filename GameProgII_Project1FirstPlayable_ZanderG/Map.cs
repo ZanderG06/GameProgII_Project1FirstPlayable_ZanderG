@@ -9,6 +9,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 {
     internal class Map
     {
+        //I'm putting gold in the Map class, hope that's right
         public List<(int, int)> gold = new List<(int, int)>();
 
         //Gets path of map file then makes array
@@ -103,6 +104,12 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             //+3 is so there's spacing
             Console.SetCursorPosition(0, mapLength+3);
             Console.Write("HUD:");
+        }
+
+        public void PickUpGold(int damage, (int, int) goldLocation)
+        {
+            gold.Remove(goldLocation);
+            damage++;
         }
     }
 }

@@ -13,12 +13,14 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
         public Health _health;
         public int _posX;
         public int _posY;
+        public int _damage;
 
-        public Player(int hp, int posX, int posY, Map gameMap) : base(hp)
+        public Player(int hp, int posX, int posY, int damage, Map gameMap) : base(hp)
         {
             _health = new Health(hp);
             _posX = posX;
             _posY = posY;
+            _damage = damage;
             _map = gameMap;
         }
 

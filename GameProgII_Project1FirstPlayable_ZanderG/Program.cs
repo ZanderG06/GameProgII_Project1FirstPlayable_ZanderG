@@ -14,8 +14,8 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 
             //Adding player and enemy here, think that's the correct way. Movement will be handled within Player and Enemy class
             Player player = new Player(hp: 10, posX: 0, posY: 0, damage: 1, gameMap: map);
-            Enemy enemy1 = new Enemy(hp: 6, posX: map.mapHeight, posY: map.mapLength, damage: 1); //Puts enemy1 in corner
-            Enemy enemy2 = new Enemy(hp: 6, posX: 0, posY: map.mapLength, damage: 1);
+            Enemy enemy1 = new Enemy(hp: 6, posX: 17, posY: 11, damage: 1);
+            Enemy enemy2 = new Enemy(hp: 6, posX: 0, posY: 11, damage: 1);
 
             bool isPlaying = true;
             map.CreateGold();
@@ -27,7 +27,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 map.PrintHUD("Player", player.health, player._damage, enemy1.health, enemy1._damage, enemy2.health, enemy2._damage);
                 ConsoleKey playerInput = Console.ReadKey(true).Key;
 
-                player.MovePlayer(playerInput);
+                player.MovePlayer(playerInput, (enemy1._posX, enemy1._posY), (enemy2._posX, enemy2._posY));
                 map.PrintMap();
                 DrawPlayers(player, enemy1, enemy2);
             }
@@ -45,7 +45,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             //First enemy
             if (enemy.health > 0)
             {
-                Console.SetCursorPosition(enemy._posX, enemy._posY);
+                Console.SetCursorPosition(enemy._posX + 1, enemy._posY + 1);
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine('#');
             }
@@ -53,7 +53,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             //Second enemy
             if (enemy2.health > 0)
             {
-                Console.SetCursorPosition(enemy2._posX + 1, enemy2._posY);
+                Console.SetCursorPosition(enemy2._posX + 1, enemy2._posY + 1);
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine('#');
             }

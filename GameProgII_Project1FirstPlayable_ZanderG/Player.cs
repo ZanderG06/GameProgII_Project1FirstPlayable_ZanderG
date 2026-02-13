@@ -24,7 +24,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             _map = gameMap;
         }
 
-        public void MovePlayer(ConsoleKey input)
+        public void MovePlayer(ConsoleKey input, (int, int) enemy1Pos, (int, int) enemy2Pos)
         {
             switch (input)
             {
@@ -35,6 +35,10 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     {
                         _map.gold.Remove((_posY - 1, _posX));
                         _damage++;
+                        break;
+                    }
+                    if(enemy1Pos == (_posY - 1, _posX) || enemy2Pos == (_posY - 1, _posX))
+                    {
                         break;
                     }
                     _posY--;
@@ -49,6 +53,10 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                         _damage++;
                         break;
                     }
+                    if (enemy1Pos == (_posY + 1, _posX) || enemy2Pos == (_posY + 1, _posX))
+                    {
+                        break;
+                    }
                     _posY++;
                     break;
                 
@@ -61,6 +69,10 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                         _damage++;
                         break;
                     }
+                    if (enemy1Pos == (_posY, _posX - 1) || enemy2Pos == (_posY, _posX - 1))
+                    {
+                        break;
+                    }
                     _posX--;
                     break;
                 
@@ -71,6 +83,10 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     {
                         _map.gold.Remove((_posY, _posX + 1));
                         _damage++;
+                        break;
+                    }
+                    if (enemy1Pos == (_posY, _posX + 1) || enemy2Pos == (_posY, _posX + 1))
+                    {
                         break;
                     }
                     _posX++;

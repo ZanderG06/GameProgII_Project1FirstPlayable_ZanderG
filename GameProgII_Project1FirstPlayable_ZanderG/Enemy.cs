@@ -22,10 +22,10 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             _map = gameMap;
         }
 
-        public void MoveEnemy(Player player)
+        public void MoveEnemy(Player player, Enemy enemy)
         {
             if(health <= 0) return;
-            Thread.Sleep(500);
+            Thread.Sleep(250);
 
             int targetX = player._posX - _posX;
             int targetY = player._posY - _posY;
@@ -43,6 +43,10 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     player.TakeDamage(_damage);
                     return;
                 }
+                if(enemy._posX == _posX - 1 && enemy._posY == _posY)
+                {
+                    return;
+                }
                 _posX--;
             }
             else if (targetX > 0 && _map.mapInGame[_posY][_posX + 1] == '*' || targetX > 0 && _map.mapInGame[_posY][_posX + 1] == '+')
@@ -56,6 +60,10 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 if (player._posX == _posX + 1 && player._posY == _posY)
                 {
                     player.TakeDamage(_damage);
+                    return;
+                }
+                if (enemy._posX == _posX + 1 && enemy._posY == _posY)
+                {
                     return;
                 }
                 _posX++;
@@ -73,6 +81,10 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     player.TakeDamage(_damage);
                     return;
                 }
+                if(enemy._posX == _posX && enemy._posY == _posY-1)
+                {
+                    return;
+                }
                 _posY--;
             }
             else if (targetY > 0 && _map.mapInGame[_posY + 1][_posX] == '*' || targetY > 0 && _map.mapInGame[_posY + 1][_posX] == '+')
@@ -86,6 +98,10 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 if (player._posX == _posX && player._posY == _posY + 1)
                 {
                     player.TakeDamage(_damage);
+                    return;
+                }
+                if (enemy._posX == _posX && enemy._posY == _posY + 1)
+                {
                     return;
                 }
                 _posY++;

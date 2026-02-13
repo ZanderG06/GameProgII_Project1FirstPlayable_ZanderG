@@ -26,6 +26,8 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
         public void TakeDamage(int damage)
         {
             health -= damage;
+
+            if(health < 0) health = 0;
         }
     }
 }

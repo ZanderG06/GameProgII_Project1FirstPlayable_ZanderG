@@ -105,7 +105,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 
         static bool CheckIfGameOver(Player player, Enemy enemy1, Enemy enemy2)
         {
-            if (player.health == 0 || enemy1.health == 0 && enemy2.health == 0) return false;
+            if (player.health <= 0 || enemy1.health <= 0 && enemy2.health <= 0) return false;
 
             return true;
         }

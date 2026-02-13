@@ -22,28 +22,72 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             _map = gameMap;
         }
 
-        public void MoveEnemy(int playerPosX, int playerPosY)
+        public void MoveEnemy(Player player)
         {
             if(health <= 0) return;
             Thread.Sleep(500);
 
-            int targetX = playerPosX - _posX;
-            int targetY = playerPosY - _posY;
+            int targetX = player._posX - _posX;
+            int targetY = player._posY - _posY;
 
-            if(targetX < 0 && _map.mapInGame[_posY][_posX - 1] == '*')
+            if(targetX < 0 && _map.mapInGame[_posY][_posX - 1] == '*' || targetX < 0 && _map.mapInGame[_posY][_posX - 1] == '+')
             {
+                if (_map.gold.Contains((_posY, _posX-1)))
+                {
+                    _map.gold.Remove((_posY, _posX-1));
+                    _damage++;
+                    return;
+                }
+                if(player._posX == _posX - 1 && player._posY == _posY)
+                {
+                    player.TakeDamage(_damage);
+                    return;
+                }
                 _posX--;
             }
-            else if (targetX < 0 && _map.mapInGame[_posY][_posX + 1] == '*')
+            else if (targetX > 0 && _map.mapInGame[_posY][_posX + 1] == '*' || targetX > 0 && _map.mapInGame[_posY][_posX + 1] == '+')
             {
+                if (_map.gold.Contains((_posY, _posX + 1)))
+                {
+                    _map.gold.Remove((_posY, _posX + 1));
+                    _damage++;
+                    return;
+                }
+                if (player._posX == _posX + 1 && player._posY == _posY)
+                {
+                    player.TakeDamage(_damage);
+                    return;
+                }
                 _posX++;
             }
-            else if (targetX < 0 && _map.mapInGame[_posY-1][_posX] == '*')
+            else if (targetY < 0 && _map.mapInGame[_posY-1][_posX] == '*' || targetY < 0 && _map.mapInGame[_posY - 1][_posX] == '+')
             {
+                if (_map.gold.Contains((_posY-1, _posX)))
+                {
+                    _map.gold.Remove((_posY-1, _posX));
+                    _damage++;
+                    return;
+                }
+                if (player._posX == _posX && player._posY == _posY-1)
+                {
+                    player.TakeDamage(_damage);
+                    return;
+                }
                 _posY--;
             }
-            else if (targetX < 0 && _map.mapInGame[_posY + 1][_posX] == '*')
+            else if (targetY > 0 && _map.mapInGame[_posY + 1][_posX] == '*' || targetY > 0 && _map.mapInGame[_posY + 1][_posX] == '+')
             {
+                if (_map.gold.Contains((_posY + 1, _posX)))
+                {
+                    _map.gold.Remove((_posY + 1, _posX));
+                    _damage++;
+                    return;
+                }
+                if (player._posX == _posX && player._posY == _posY + 1)
+                {
+                    player.TakeDamage(_damage);
+                    return;
+                }
                 _posY++;
             }
         }

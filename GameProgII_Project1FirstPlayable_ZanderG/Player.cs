@@ -28,6 +28,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             switch (input)
             {
                 case ConsoleKey.W:
+                case ConsoleKey.UpArrow:
                     if (_posY <= 0) break;
                     if (_map.mapInGame[_posY-1][_posX] == '|' || _map.mapInGame[_posY - 1][_posX] == '-' || _map.mapInGame[_posY - 1][_posX] == '~') break;
                     if (_map.gold.Contains((_posY - 1, _posX)))
@@ -51,6 +52,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     break;
                 
                 case ConsoleKey.S:
+                case ConsoleKey.DownArrow:
                     if (_posY >= _map.mapLength-1) break;
                     if (_map.mapInGame[_posY + 1][_posX] == '|' || _map.mapInGame[_posY + 1][_posX] == '-' || _map.mapInGame[_posY + 1][_posX] == '~') break;
                     if (_map.gold.Contains((_posY + 1, _posX)))
@@ -74,6 +76,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     break;
                 
                 case ConsoleKey.A:
+                case ConsoleKey.LeftArrow:
                     if (_posX <= 0) break;
                     if (_map.mapInGame[_posY][_posX-1] == '|' || _map.mapInGame[_posY][_posX-1] == '-' || _map.mapInGame[_posY][_posX-1] == '~') break;
                     if (_map.gold.Contains((_posY, _posX-1)))
@@ -97,6 +100,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     break;
                 
                 case ConsoleKey.D:
+                case ConsoleKey.RightArrow:
                     if (_posX >= _map.mapHeight-1) break;
                     if (_map.mapInGame[_posY][_posX + 1] == '|' || _map.mapInGame[_posY][_posX + 1] == '-' || _map.mapInGame[_posY][_posX + 1] == '~') break;
                     if (_map.gold.Contains((_posY, _posX + 1)))

@@ -15,7 +15,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             //Adding player and enemy here, think that's the correct way. Movement will be handled within Player and Enemy class
             Player player = new Player(hp: 10, posX: 0, posY: 0, damage: 1, gameMap: map);
             Enemy enemy1 = new Enemy(hp: 6, posX: 17, posY: 11, damage: 1, gameMap: map);
-            Enemy enemy2 = new Enemy(hp: 6, posX: 0, posY: 11, damage: 1, gameMap: map);
+            Enemy enemy2 = new Enemy(hp: 6, posX: 17, posY: 0, damage: 1, gameMap: map);
 
             bool isPlaying = true;
             map.CreateGold();
@@ -24,23 +24,39 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 
             while(isPlaying)
             {
-                map.PrintHUD("Player", player.health, player._damage, enemy1.health, enemy1._damage, enemy2.health, enemy2._damage);
+                map.PrintHUD("Player's Turn", player.health, player._damage, enemy1.health, enemy1._damage, enemy2.health, enemy2._damage);
                 ConsoleKey playerInput = Console.ReadKey(true).Key;
 
                 player.MovePlayer(playerInput, (enemy1._posY, enemy1._posX), (enemy2._posY, enemy2._posX), enemy1, enemy2);
-                map.PrintHUD("Enemy 1", player.health, player._damage, enemy1.health, enemy1._damage, enemy2.health, enemy2._damage);
+                map.PrintHUD("Enemy 1's Turn", player.health, player._damage, enemy1.health, enemy1._damage, enemy2.health, enemy2._damage);
                 map.PrintMap();
                 DrawPlayers(player, enemy1, enemy2);
 
-                enemy1.MoveEnemy(player._posX, player._posY);
-                map.PrintHUD("Enemy 2", player.health, player._damage, enemy1.health, enemy1._damage, enemy2.health, enemy2._damage);
+                enemy1.MoveEnemy(player);
+                map.PrintHUD("Enemy 2's Turn", player.health, player._damage, enemy1.health, enemy1._damage, enemy2.health, enemy2._damage);
                 map.PrintMap();
                 DrawPlayers(player, enemy1, enemy2);
 
-                enemy2.MoveEnemy(player._posX, player._posY);
+                enemy2.MoveEnemy(player);
 
                 map.PrintMap();
                 DrawPlayers(player, enemy1, enemy2);
+
+                isPlaying = CheckIfGameOver(player, enemy1, enemy2);
+
+                if(!isPlaying)
+                {
+                    Console.Clear();
+                    if (player.health == 0)
+                    {
+                        Console.WriteLine("Game Over! You lose.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Congratulations! You win!");
+                    }
+                    Console.ReadKey(true);
+                }
             }
         }
 
@@ -85,6 +101,13 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             }
 
             Console.ResetColor();
+        }
+
+        static bool CheckIfGameOver(Player player, Enemy enemy1, Enemy enemy2)
+        {
+            if (player.health == 0 || enemy1.health == 0 && enemy2.health == 0) return false;
+
+            return true;
         }
     }
 }

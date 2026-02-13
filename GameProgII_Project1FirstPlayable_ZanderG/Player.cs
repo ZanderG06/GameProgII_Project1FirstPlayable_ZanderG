@@ -29,28 +29,44 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 case ConsoleKey.W:
                     if (_posY <= 0) break;
                     if (_map.mapInGame[_posY-1][_posX] == '|' || _map.mapInGame[_posY - 1][_posX] == '-' || _map.mapInGame[_posY - 1][_posX] == '~' || _map.mapInGame[_posY - 1][_posX] == '@') break;
-                    if (_map.gold.Contains((_posY - 1, _posX))) break;
+                    if (_map.gold.Contains((_posY - 1, _posX)))
+                    {
+                        _map.gold.Remove((_posY - 1, _posX));
+                        break;
+                    }
                     _posY--;
                     break;
                 
                 case ConsoleKey.S:
                     if (_posY >= _map.mapLength-1) break;
                     if (_map.mapInGame[_posY + 1][_posX] == '|' || _map.mapInGame[_posY + 1][_posX] == '-' || _map.mapInGame[_posY + 1][_posX] == '~' || _map.mapInGame[_posY + 1][_posX] == '@') break;
-                    if (_map.gold.Contains((_posY + 1, _posX))) break;
+                    if (_map.gold.Contains((_posY + 1, _posX)))
+                    {
+                        _map.gold.Remove((_posY + 1, _posX));
+                        break;
+                    }
                     _posY++;
                     break;
                 
                 case ConsoleKey.A:
                     if (_posX <= 0) break;
                     if (_map.mapInGame[_posY][_posX-1] == '|' || _map.mapInGame[_posY][_posX-1] == '-' || _map.mapInGame[_posY][_posX-1] == '~' || _map.mapInGame[_posY][_posX-1] == '@') break;
-                    if (_map.gold.Contains((_posY, _posX-1))) break;
+                    if (_map.gold.Contains((_posY, _posX-1)))
+                    {
+                        _map.gold.Remove((_posY, _posX-1));
+                        break;
+                    }
                     _posX--;
                     break;
                 
                 case ConsoleKey.D:
                     if (_posX >= _map.mapHeight-1) break;
                     if (_map.mapInGame[_posY][_posX + 1] == '|' || _map.mapInGame[_posY][_posX + 1] == '-' || _map.mapInGame[_posY][_posX + 1] == '~' || _map.mapInGame[_posY][_posX + 1] == '@') break;
-                    if (_map.gold.Contains((_posY, _posX + 1))) break;
+                    if (_map.gold.Contains((_posY, _posX + 1)))
+                    {
+                        _map.gold.Remove((_posY, _posX + 1));
+                        break;
+                    }
                     _posX++;
                     break;
             }

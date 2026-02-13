@@ -27,7 +27,9 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 map.PrintHUD("Player", player.health, player._damage, enemy1.health, enemy1._damage, enemy2.health, enemy2._damage);
                 ConsoleKey playerInput = Console.ReadKey(true).Key;
 
-                player.MovePlayer(playerInput, (enemy1._posX, enemy1._posY), (enemy2._posX, enemy2._posY));
+                player.MovePlayer(playerInput, (enemy1._posY, enemy1._posX), (enemy2._posY, enemy2._posX), enemy1, enemy2);
+                
+                
                 map.PrintMap();
                 DrawPlayers(player, enemy1, enemy2);
             }

@@ -72,10 +72,10 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     {
                         Console.ForegroundColor = ConsoleColor.Blue;
                     }
-                    else if(mapInGame[i][j] == '@')
+                    else if(mapInGame[i][j] == '+')
                     {
                         //Will probably change (ew ew ew ugly)
-                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.ForegroundColor = ConsoleColor.Magenta;
                     }
                     else
                     {
@@ -111,7 +111,6 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             Console.WriteLine($"\nEnemy1 Damage: {enemy1Damage}");
             Console.WriteLine($"\nEnemy2 Health: {enemy2Health}");
             Console.WriteLine($"\nEnemy2 Damage: {enemy2Damage}");
-
         }
     }
 }

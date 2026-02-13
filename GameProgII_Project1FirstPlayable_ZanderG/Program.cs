@@ -32,12 +32,12 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 map.PrintMap();
                 DrawPlayers(player, enemy1, enemy2);
 
-                enemy1.MoveEnemy(player);
+                enemy1.MoveEnemy(player, enemy2);
                 map.PrintHUD("Enemy 2's Turn", player.health, player._damage, enemy1.health, enemy1._damage, enemy2.health, enemy2._damage);
                 map.PrintMap();
                 DrawPlayers(player, enemy1, enemy2);
 
-                enemy2.MoveEnemy(player);
+                enemy2.MoveEnemy(player, enemy1);
 
                 map.PrintMap();
                 DrawPlayers(player, enemy1, enemy2);

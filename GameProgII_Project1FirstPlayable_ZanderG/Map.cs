@@ -104,7 +104,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             //+3 is so there's spacing
             Console.SetCursorPosition(0, mapLength+3);
             Console.Write("HUD:");
-            Console.WriteLine($"\n{currentPlayerTurn}'s turn");
+            Console.WriteLine($"\n{currentPlayerTurn}'s turn           ");
             Console.WriteLine($"\nPlayer Health: {playerHealth}");
             Console.WriteLine($"\nPlayer Damage: {playerDamage}");
             Console.WriteLine($"\nEnemy1 Health: {enemy1Health}");

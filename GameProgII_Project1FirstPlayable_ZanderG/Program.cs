@@ -21,10 +21,10 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             map.CreateGold();
             map.PrintMap();
             DrawPlayers(player, enemy1, enemy2);
-            map.PrintHUD("Player", player.health, player._damage, enemy1.health, enemy1._damage, enemy2.health, enemy2._damage);
 
             while(isPlaying)
             {
+                map.PrintHUD("Player", player.health, player._damage, enemy1.health, enemy1._damage, enemy2.health, enemy2._damage);
                 ConsoleKey playerInput = Console.ReadKey(true).Key;
 
                 player.MovePlayer(playerInput);

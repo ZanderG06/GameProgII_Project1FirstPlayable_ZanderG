@@ -113,11 +113,5 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             Console.WriteLine($"\nEnemy2 Damage: {enemy2Damage}");
 
         }
-
-        public void PickUpGold(int damage, (int, int) goldLocation)
-        {
-            gold.Remove(goldLocation);
-            damage++;
-        }
     }
 }

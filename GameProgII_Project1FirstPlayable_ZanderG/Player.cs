@@ -33,7 +33,8 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     if (_map.mapInGame[_posY-1][_posX] == '|' || _map.mapInGame[_posY - 1][_posX] == '-' || _map.mapInGame[_posY - 1][_posX] == '~' || _map.mapInGame[_posY - 1][_posX] == '@') break;
                     if (_map.gold.Contains((_posY - 1, _posX)))
                     {
-                        _map.PickUpGold(_damage, (_posY - 1, _posX));
+                        _map.gold.Remove((_posY - 1, _posX));
+                        _damage++;
                         break;
                     }
                     _posY--;
@@ -44,7 +45,8 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     if (_map.mapInGame[_posY + 1][_posX] == '|' || _map.mapInGame[_posY + 1][_posX] == '-' || _map.mapInGame[_posY + 1][_posX] == '~' || _map.mapInGame[_posY + 1][_posX] == '@') break;
                     if (_map.gold.Contains((_posY + 1, _posX)))
                     {
-                        _map.PickUpGold(_damage, (_posY + 1, _posX));
+                        _map.gold.Remove((_posY + 1, _posX));
+                        _damage++;
                         break;
                     }
                     _posY++;
@@ -55,7 +57,8 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     if (_map.mapInGame[_posY][_posX-1] == '|' || _map.mapInGame[_posY][_posX-1] == '-' || _map.mapInGame[_posY][_posX-1] == '~' || _map.mapInGame[_posY][_posX-1] == '@') break;
                     if (_map.gold.Contains((_posY, _posX-1)))
                     {
-                        _map.PickUpGold(_damage, (_posY, _posX - 1));
+                        _map.gold.Remove((_posY, _posX - 1));
+                        _damage++;
                         break;
                     }
                     _posX--;
@@ -66,7 +69,8 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     if (_map.mapInGame[_posY][_posX + 1] == '|' || _map.mapInGame[_posY][_posX + 1] == '-' || _map.mapInGame[_posY][_posX + 1] == '~' || _map.mapInGame[_posY][_posX + 1] == '@') break;
                     if (_map.gold.Contains((_posY, _posX + 1)))
                     {
-                        _map.PickUpGold(_damage, (_posY, _posX + 1));
+                        _map.gold.Remove((_posY, _posX + 1));
+                        _damage++;
                         break;
                     }
                     _posX++;

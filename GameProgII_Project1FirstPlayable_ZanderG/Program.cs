@@ -29,11 +29,11 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             {
                 map.PrintHUD("Player's Turn", player, enemies);
                 ConsoleKey playerInput = Console.ReadKey(true).Key;
-                player.MovePlayer(playerInput, enemies, player);
+                player.Move(playerInput, enemies, player);
                 
                 for(int i = 0; i < enemies.Count; i++)
                 {
-                    map.PrintHUD("Player's Turn", player, enemies);
+                    map.PrintHUD($"Enemy{i+1}'s Turn", player, enemies);
                     enemies[i].MoveEnemy(player, enemies, i);
                     map.PrintMap();
                     DrawPlayers(player, enemies);
@@ -98,10 +98,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             int deadEnemies = 0;
             for(int i = 0; i < enemy.Count; i++)
             {
-                if (enemy[i].health <= 0)
-                {
-                    deadEnemies++;
-                }
+                if (enemy[i].health <= 0) deadEnemies++;
             }
 
             if (deadEnemies == enemy.Count) return false;

@@ -22,7 +22,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             _map = gameMap;
         }
 
-        public void MoveEnemy(Player player, Enemy enemy)
+        public void MoveEnemy(Player player, List<Enemy> enemy, int enemyTurn)
         {
             if(health <= 0) return;
             Thread.Sleep(250);
@@ -32,7 +32,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 
             if(targetX < 0 && _map.mapInGame[_posY][_posX - 1] == '*' || targetX < 0 && _map.mapInGame[_posY][_posX - 1] == '+')
             {
-                if (_map.gold.Contains((_posY, _posX-1)))
+                if (_map.gold.Contains((_posY, _posX-1))) //Enemies picking up gold is on purpose, their damage can go up like the Player
                 {
                     _map.gold.Remove((_posY, _posX-1));
                     _damage++;
@@ -41,11 +41,19 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 if(player._posX == _posX - 1 && player._posY == _posY)
                 {
                     player.TakeDamage(_damage);
+                    player._lastEncounteredEnemy = enemyTurn;
                     return;
                 }
-                if(enemy._posX == _posX - 1 && enemy._posY == _posY)
+                for(int i = 0; i < enemy.Count; i++)
                 {
-                    return;
+                    if(i == enemyTurn) //Makes it so that the enemy doesn't check for itself when trying to move
+                    {
+                        continue;
+                    }
+                    if (enemy[i]._posX == _posX - 1 && enemy[i]._posY == _posY)
+                    {
+                        return;
+                    }
                 }
                 _posX--;
             }
@@ -60,11 +68,19 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 if (player._posX == _posX + 1 && player._posY == _posY)
                 {
                     player.TakeDamage(_damage);
+                    player._lastEncounteredEnemy = enemyTurn;
                     return;
                 }
-                if (enemy._posX == _posX + 1 && enemy._posY == _posY)
+                for (int i = 0; i < enemy.Count; i++)
                 {
-                    return;
+                    if (i == enemyTurn)
+                    {
+                        continue;
+                    }
+                    if (enemy[i]._posX == _posX + 1 && enemy[i]._posY == _posY)
+                    {
+                        return;
+                    }
                 }
                 _posX++;
             }
@@ -79,11 +95,19 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 if (player._posX == _posX && player._posY == _posY-1)
                 {
                     player.TakeDamage(_damage);
+                    player._lastEncounteredEnemy = enemyTurn;
                     return;
                 }
-                if(enemy._posX == _posX && enemy._posY == _posY-1)
+                for(int i = 0; i < enemy.Count; i++)
                 {
-                    return;
+                    if (i == enemyTurn)
+                    {
+                        continue;
+                    }
+                    if (enemy[i]._posX == _posX && enemy[i]._posY == _posY - 1)
+                    {
+                        return;
+                    }
                 }
                 _posY--;
             }
@@ -98,11 +122,19 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 if (player._posX == _posX && player._posY == _posY + 1)
                 {
                     player.TakeDamage(_damage);
+                    player._lastEncounteredEnemy = enemyTurn;
                     return;
                 }
-                if (enemy._posX == _posX && enemy._posY == _posY + 1)
+                for(int i = 0; i < enemy.Count; i++)
                 {
-                    return;
+                    if (i == enemyTurn)
+                    {
+                        continue;
+                    }
+                    if (enemy[i]._posX == _posX && enemy[i]._posY == _posY + 1)
+                    {
+                        return;
+                    }
                 }
                 _posY++;
             }

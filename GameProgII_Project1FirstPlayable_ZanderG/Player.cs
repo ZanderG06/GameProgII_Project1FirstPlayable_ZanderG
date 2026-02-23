@@ -14,16 +14,18 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
         public int _posX;
         public int _posY;
         public int _damage;
+        public int _lastEncounteredEnemy;
 
-        public Player(int hp, int posX, int posY, int damage, Map gameMap) : base(hp)
+        public Player(int hp, int posX, int posY, int damage, Map gameMap, int lastEncounteredEnemy) : base(hp)
         {
             _posX = posX;
             _posY = posY;
             _damage = damage;
             _map = gameMap;
+            _lastEncounteredEnemy = lastEncounteredEnemy;
         }
 
-        public void MovePlayer(ConsoleKey input, (int, int) enemy1Pos, (int, int) enemy2Pos, Enemy enemy1, Enemy enemy2)
+        public void MovePlayer(ConsoleKey input, List<Enemy> enemy, Player player)
         {
             switch (input)
             {
@@ -37,15 +39,14 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                         _damage++;
                         break;
                     }
-                    if(enemy1Pos == (_posY - 1, _posX))
+                    for(int i = 0; i < enemy.Count; i++)
                     {
-                        enemy1.TakeDamage(_damage);
-                        break;
-                    }
-                    if(enemy2Pos == (_posY - 1, _posX))
-                    {
-                        enemy2.TakeDamage(_damage);
-                        break;
+                        if(enemy[i]._posY == _posY - 1 && enemy[i]._posX == _posX)
+                        {
+                            enemy[i].TakeDamage(_damage);
+                            player._lastEncounteredEnemy = i;
+                            return; //return instead of break as break only stops the for loop
+                        }
                     }
                     if(_map.mapInGame[_posY - 1][_posX] == '+') Heal();
                     _posY--;
@@ -61,15 +62,14 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                         _damage++;
                         break;
                     }
-                    if (enemy1Pos == (_posY + 1, _posX))
+                    for (int i = 0; i < enemy.Count; i++)
                     {
-                        enemy1.TakeDamage(_damage);
-                        break;
-                    }
-                    if (enemy2Pos == (_posY + 1, _posX))
-                    {
-                        enemy2.TakeDamage(_damage);
-                        break;
+                        if (enemy[i]._posY == _posY + 1 && enemy[i]._posX == _posX)
+                        {
+                            enemy[i].TakeDamage(_damage);
+                            player._lastEncounteredEnemy = i;
+                            return;
+                        }
                     }
                     if (_map.mapInGame[_posY + 1][_posX] == '+') Heal();
                     _posY++;
@@ -85,15 +85,14 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                         _damage++;
                         break;
                     }
-                    if (enemy1Pos == (_posY, _posX-1))
+                    for (int i = 0; i < enemy.Count; i++)
                     {
-                        enemy1.TakeDamage(_damage);
-                        break;
-                    }
-                    if (enemy2Pos == (_posY, _posX-1))
-                    {
-                        enemy2.TakeDamage(_damage);
-                        break;
+                        if (enemy[i]._posY == _posY && enemy[i]._posX == _posX-1)
+                        {
+                            enemy[i].TakeDamage(_damage);
+                            player._lastEncounteredEnemy = i;
+                            return;
+                        }
                     }
                     if (_map.mapInGame[_posY][_posX-1] == '+') Heal();
                     _posX--;
@@ -109,15 +108,14 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                         _damage++;
                         break;
                     }
-                    if (enemy1Pos == (_posY, _posX + 1))
+                    for (int i = 0; i < enemy.Count; i++)
                     {
-                        enemy1.TakeDamage(_damage);
-                        break;
-                    }
-                    if (enemy2Pos == (_posY, _posX + 1))
-                    {
-                        enemy2.TakeDamage(_damage);
-                        break;
+                        if (enemy[i]._posY == _posY && enemy[i]._posX == _posX + 1)
+                        {
+                            enemy[i].TakeDamage(_damage);
+                            player._lastEncounteredEnemy = i;
+                            return;
+                        }
                     }
                     if (_map.mapInGame[_posY][_posX + 1] == '+') Heal();
                     _posX++;

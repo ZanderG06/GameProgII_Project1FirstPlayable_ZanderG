@@ -99,18 +99,16 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             }
         }
 
-        public void PrintHUD(string hudText, int playerHealth, int playerDamage, int enemy1Health, int enemy1Damage, int enemy2Health, int enemy2Damage)
+        public void PrintHUD(string hudText, Player player, List<Enemy> enemy)
         {
             //+3 is so there's spacing
             Console.SetCursorPosition(0, mapLength+3);
             Console.Write("HUD:");
-            Console.WriteLine($"\n{hudText}                            ");
-            Console.WriteLine($"\nPlayer Health: {playerHealth}        ");
-            Console.WriteLine($"\nPlayer Damage: {playerDamage}        ");
-            Console.WriteLine($"\nEnemy1 Health: {enemy1Health}        ");
-            Console.WriteLine($"\nEnemy1 Damage: {enemy1Damage}        ");
-            Console.WriteLine($"\nEnemy2 Health: {enemy2Health}        ");
-            Console.WriteLine($"\nEnemy2 Damage: {enemy2Damage}        ");
+            Console.WriteLine($"\n{hudText}          ");
+            Console.WriteLine($"\nPlayer Health: {player.health}          ");
+            Console.WriteLine($"\nPlayer Damage: {player._damage}          ");
+            Console.WriteLine($"\nEnemy{player._lastEncounteredEnemy+1}'s Health: {enemy[player._lastEncounteredEnemy].health}          ");
+            Console.WriteLine($"\nEnemy{player._lastEncounteredEnemy+1}'s Damage: {enemy[player._lastEncounteredEnemy]._damage}          ");
         }
     }
 }

@@ -12,37 +12,34 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
         {
             Map map = new Map();
 
-            //Adding player and enemy here, think that's the correct way. Movement will be handled within Player and Enemy class
-            Player player = new Player(hp: 10, posX: 0, posY: 0, damage: 1, gameMap: map);
+            Player player = new Player(hp: 10, posX: 0, posY: 0, damage: 1, gameMap: map, lastEncounteredEnemy: 0);
             Enemy enemy1 = new Enemy(hp: 6, posX: 17, posY: 11, damage: 1, gameMap: map);
             Enemy enemy2 = new Enemy(hp: 6, posX: 17, posY: 0, damage: 1, gameMap: map);
+
+            List<Enemy> enemies = new List<Enemy>();
+            enemies.Add(enemy1);
+            enemies.Add(enemy2);
 
             bool isPlaying = true;
             map.CreateGold();
             map.PrintMap();
-            DrawPlayers(player, enemy1, enemy2);
+            DrawPlayers(player, enemies);
 
             while(isPlaying)
             {
-                map.PrintHUD("Player's Turn", player.health, player._damage, enemy1.health, enemy1._damage, enemy2.health, enemy2._damage);
+                map.PrintHUD("Player's Turn", player, enemies);
                 ConsoleKey playerInput = Console.ReadKey(true).Key;
+                player.MovePlayer(playerInput, enemies, player);
+                
+                for(int i = 0; i < enemies.Count; i++)
+                {
+                    map.PrintHUD("Player's Turn", player, enemies);
+                    enemies[i].MoveEnemy(player, enemies, i);
+                    map.PrintMap();
+                    DrawPlayers(player, enemies);
+                }
 
-                player.MovePlayer(playerInput, (enemy1._posY, enemy1._posX), (enemy2._posY, enemy2._posX), enemy1, enemy2);
-                map.PrintHUD("Enemy 1's Turn", player.health, player._damage, enemy1.health, enemy1._damage, enemy2.health, enemy2._damage);
-                map.PrintMap();
-                DrawPlayers(player, enemy1, enemy2);
-
-                enemy1.MoveEnemy(player, enemy2);
-                map.PrintHUD("Enemy 2's Turn", player.health, player._damage, enemy1.health, enemy1._damage, enemy2.health, enemy2._damage);
-                map.PrintMap();
-                DrawPlayers(player, enemy1, enemy2);
-
-                enemy2.MoveEnemy(player, enemy1);
-
-                map.PrintMap();
-                DrawPlayers(player, enemy1, enemy2);
-
-                isPlaying = CheckIfGameOver(player, enemy1, enemy2);
+                isPlaying = CheckIfGameOver(player, enemies);
 
                 if(!isPlaying)
                 {
@@ -60,7 +57,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             }
         }
 
-        static void DrawPlayers(Player player, Enemy enemy1, Enemy enemy2)
+        static void DrawPlayers(Player player, List<Enemy> enemy)
         {
             //Player, if statement makes sure player/enemies are alive before drawing
             if (player.health > 0)
@@ -74,38 +71,40 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 player._posY = 12;
             }
 
-            //First enemy
-            if (enemy1.health > 0)
+            //Enemy, +1 accounts for the border
+            for(int i = 0; i < enemy.Count; i++)
             {
-                Console.SetCursorPosition(enemy1._posX + 1, enemy1._posY + 1);
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine('#');
-            }
-            else
-            {
-                enemy1._posX = 18;
-                enemy1._posY = 12;
-            }
-
-            //Second enemy
-            if (enemy2.health > 0)
-            {
-                Console.SetCursorPosition(enemy2._posX + 1, enemy2._posY + 1);
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine('#');
-            }
-            else
-            {
-                enemy2._posX = 18;
-                enemy2._posY = 12;
+                if (enemy[i].health > 0)
+                {
+                    Console.SetCursorPosition(enemy[i]._posX + 1, enemy[i]._posY + 1);
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine('#');
+                }
+                else
+                {
+                    enemy[i]._posX = 18;
+                    enemy[i]._posY = 12;
+                }
             }
 
             Console.ResetColor();
         }
 
-        static bool CheckIfGameOver(Player player, Enemy enemy1, Enemy enemy2)
+        static bool CheckIfGameOver(Player player, List<Enemy> enemy)
         {
-            if (player.health <= 0 || enemy1.health <= 0 && enemy2.health <= 0) return false;
+            if (player.health <= 0) return false;
+
+            //I think this is the best way to do it
+            int deadEnemies = 0;
+            for(int i = 0; i < enemy.Count; i++)
+            {
+                if (enemy[i].health <= 0)
+                {
+                    deadEnemies++;
+                }
+            }
+
+            if (deadEnemies == enemy.Count) return false;
 
             return true;
         }

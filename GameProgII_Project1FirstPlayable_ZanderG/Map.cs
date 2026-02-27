@@ -33,7 +33,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 int randomY = random.Next(1, mapHeight-1);
 
                 //Makes sure gold is actually accessible
-                if(mapInGame[randomX][randomY] != '*')
+                if(mapInGame[randomX][randomY] == '*')
                 {
                     i--;
                     continue;

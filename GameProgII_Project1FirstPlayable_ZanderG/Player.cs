@@ -32,7 +32,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 case ConsoleKey.W:
                 case ConsoleKey.UpArrow:
                     if (_posY <= 0) break;
-                    if (_map.mapInGame[_posY-1][_posX] == '|' || _map.mapInGame[_posY - 1][_posX] == '-' || _map.mapInGame[_posY - 1][_posX] == '~') break;
+                    if (_map.mapInGame[_posY-1][_posX] != '|' || _map.mapInGame[_posY - 1][_posX] != '-' || _map.mapInGame[_posY - 1][_posX] != '~') break;
                     if (_map.gold.Contains((_posY - 1, _posX)))
                     {
                         _map.gold.Remove((_posY - 1, _posX));

@@ -18,9 +18,14 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
         
         public int mapHeight { get { return mapInGame[0].Length;} }
 
+        public Dictionary<char, ConsoleColor> mapColors = new Dictionary<char, ConsoleColor>();
 
         public void PrintMap(List<(int, int)> gold)
         {
+            mapColors.Add('*', ConsoleColor.Green);
+            mapColors.Add('~', ConsoleColor.Blue);
+            mapColors.Add('+', ConsoleColor.Magenta);
+
             Console.SetCursorPosition(0,0);
 
             //The +2 is just for the corners, hope it doesn't count as magic number :D
@@ -32,22 +37,11 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 Console.Write('░');
                 for(int j = 0; j < mapHeight; j++)
                 {
-                    if(mapInGame[i][j] == '*')
+                    char mapTile = mapInGame[i][j];
+
+                    if(mapColors.ContainsKey(mapTile))
                     {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                    }
-                    else if(mapInGame[i][j] == '~')
-                    {
-                        Console.ForegroundColor = ConsoleColor.Blue;
-                    }
-                    else if(mapInGame[i][j] == '+')
-                    {
-                        //Will probably change (ew ew ew ugly)
-                        Console.ForegroundColor = ConsoleColor.Magenta;
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                        Console.ForegroundColor = mapColors[mapTile];
                     }
 
                     Console.Write(mapInGame[i][j]);

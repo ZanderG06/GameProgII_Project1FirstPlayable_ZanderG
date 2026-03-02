@@ -21,12 +21,16 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             enemies.Add(enemy1);
             enemies.Add(enemy2);
 
+            map.mapColors.Add('*', ConsoleColor.Green);
+            map.mapColors.Add('~', ConsoleColor.Blue);
+            map.mapColors.Add('+', ConsoleColor.Magenta);
+
             bool isPlaying = true;
             gold.CreateGold(map);
             map.PrintMap(gold.gold);
             DrawPlayers(player, enemies);
 
-            while(isPlaying)
+            while (isPlaying)
             {
                 map.PrintHUD("Player's Turn", player, enemies);
                 ConsoleKey playerInput = Console.ReadKey(true).Key;

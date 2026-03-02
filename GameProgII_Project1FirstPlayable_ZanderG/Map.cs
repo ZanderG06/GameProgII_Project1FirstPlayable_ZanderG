@@ -22,9 +22,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 
         public void PrintMap(List<(int, int)> gold)
         {
-            mapColors.Add('*', ConsoleColor.Green);
-            mapColors.Add('~', ConsoleColor.Blue);
-            mapColors.Add('+', ConsoleColor.Magenta);
+            
 
             Console.SetCursorPosition(0,0);
 

@@ -105,9 +105,9 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             Console.SetCursorPosition(0, mapLength+3);
             Console.Write("HUD:");
             Console.WriteLine($"\n{hudText}          ");
-            Console.WriteLine($"\nPlayer Health: {player.health}          ");
+            Console.WriteLine($"\nPlayer Health: {player._health.health}          ");
             Console.WriteLine($"\nPlayer Damage: {player._damage}          ");
-            Console.WriteLine($"\nEnemy{player._lastEncounteredEnemy+1}'s Health: {enemy[player._lastEncounteredEnemy].health}          ");
+            Console.WriteLine($"\nEnemy{player._lastEncounteredEnemy+1}'s Health: {enemy[player._lastEncounteredEnemy]._health.health}          ");
             Console.WriteLine($"\nEnemy{player._lastEncounteredEnemy+1}'s Damage: {enemy[player._lastEncounteredEnemy]._damage}          ");
         }
     }

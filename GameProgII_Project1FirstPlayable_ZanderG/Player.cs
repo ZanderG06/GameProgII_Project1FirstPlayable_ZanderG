@@ -8,16 +8,18 @@ using System.Threading.Tasks;
 
 namespace GameProgII_Project1FirstPlayable_ZanderG
 {
-    internal class Player : Health
+    internal class Player
     {
+        public Health _health; //I think this is what you mean by Composition
         public Map _map;
         public int _posX;
         public int _posY;
         public int _damage;
         public int _lastEncounteredEnemy;
 
-        public Player(int hp, int posX, int posY, int damage, Map gameMap, int lastEncounteredEnemy) : base(hp)
+        public Player(int hp, int posX, int posY, int damage, Map gameMap, int lastEncounteredEnemy)
         {
+            _health = new Health(hp);
             _posX = posX;
             _posY = posY;
             _damage = damage;
@@ -43,12 +45,12 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     {
                         if(enemy[i]._posY == _posY - 1 && enemy[i]._posX == _posX)
                         {
-                            enemy[i].TakeDamage(_damage);
+                            enemy[i]._health.TakeDamage(_damage);
                             player._lastEncounteredEnemy = i;
                             return; //return instead of break as break only stops the for loop
                         }
                     }
-                    if(_map.mapInGame[_posY - 1][_posX] == '+') Heal();
+                    if(_map.mapInGame[_posY - 1][_posX] == '+') _health.Heal();
                     _posY--;
                     break;
                 
@@ -66,12 +68,12 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     {
                         if (enemy[i]._posY == _posY + 1 && enemy[i]._posX == _posX)
                         {
-                            enemy[i].TakeDamage(_damage);
+                            enemy[i]._health.TakeDamage(_damage);
                             player._lastEncounteredEnemy = i;
                             return;
                         }
                     }
-                    if (_map.mapInGame[_posY + 1][_posX] == '+') Heal();
+                    if (_map.mapInGame[_posY + 1][_posX] == '+') _health.Heal();
                     _posY++;
                     break;
                 
@@ -89,12 +91,12 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     {
                         if (enemy[i]._posY == _posY && enemy[i]._posX == _posX-1)
                         {
-                            enemy[i].TakeDamage(_damage);
+                            enemy[i]._health.TakeDamage(_damage);
                             player._lastEncounteredEnemy = i;
                             return;
                         }
                     }
-                    if (_map.mapInGame[_posY][_posX-1] == '+') Heal();
+                    if (_map.mapInGame[_posY][_posX-1] == '+') _health.Heal();
                     _posX--;
                     break;
                 
@@ -112,12 +114,12 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     {
                         if (enemy[i]._posY == _posY && enemy[i]._posX == _posX + 1)
                         {
-                            enemy[i].TakeDamage(_damage);
+                            enemy[i]._health.TakeDamage(_damage);
                             player._lastEncounteredEnemy = i;
                             return;
                         }
                     }
-                    if (_map.mapInGame[_posY][_posX + 1] == '+') Heal();
+                    if (_map.mapInGame[_posY][_posX + 1] == '+') _health.Heal();
                     _posX++;
                     break;
             }

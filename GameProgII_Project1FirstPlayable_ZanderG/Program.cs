@@ -44,7 +44,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 if(!isPlaying)
                 {
                     Console.Clear();
-                    if (player.health == 0)
+                    if (player._health.health == 0)
                     {
                         Console.WriteLine("Game Over! You lose.");
                     }
@@ -60,7 +60,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
         static void DrawPlayers(Player player, List<Enemy> enemy)
         {
             //Player, if statement makes sure player/enemies are alive before drawing
-            if (player.health > 0)
+            if (player._health.health > 0)
             {
                 Console.SetCursorPosition(player._posX + 1, player._posY + 1);
                 Console.Write('&');
@@ -74,7 +74,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             //Enemy, +1 accounts for the border
             for(int i = 0; i < enemy.Count; i++)
             {
-                if (enemy[i].health > 0)
+                if (enemy[i]._health.health > 0)
                 {
                     Console.SetCursorPosition(enemy[i]._posX + 1, enemy[i]._posY + 1);
                     Console.ForegroundColor = ConsoleColor.Red;
@@ -92,13 +92,13 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 
         static bool CheckIfGameOver(Player player, List<Enemy> enemy)
         {
-            if (player.health <= 0) return false;
+            if (player._health.health <= 0) return false;
 
             //I think this is the best way to do it
             int deadEnemies = 0;
             for(int i = 0; i < enemy.Count; i++)
             {
-                if (enemy[i].health <= 0) deadEnemies++;
+                if (enemy[i]._health.health <= 0) deadEnemies++;
             }
 
             if (deadEnemies == enemy.Count) return false;

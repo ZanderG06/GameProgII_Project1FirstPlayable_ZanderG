@@ -7,15 +7,17 @@ using System.Threading.Tasks;
 
 namespace GameProgII_Project1FirstPlayable_ZanderG
 {
-    internal class Enemy : Health
+    internal class Enemy
     {
+        public Health _health;
         public int _posX;
         public int _posY;
         public int _damage;
         public Map _map;
 
-        public Enemy(int hp, int posX, int posY, int damage, Map gameMap) : base(hp)
+        public Enemy(int hp, int posX, int posY, int damage, Map gameMap)
         {
+            _health = new Health(hp);
             _posX = posX;
             _posY = posY;
             _damage = damage;
@@ -24,7 +26,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 
         public void MoveEnemy(Player player, List<Enemy> enemy, int enemyTurn)
         {
-            if(health <= 0) return;
+            if(_health.health <= 0) return;
             Thread.Sleep(250);
 
             int targetX = player._posX - _posX;
@@ -40,7 +42,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 }
                 if(player._posX == _posX - 1 && player._posY == _posY)
                 {
-                    player.TakeDamage(_damage);
+                    player._health.TakeDamage(_damage);
                     player._lastEncounteredEnemy = enemyTurn;
                     return;
                 }
@@ -67,7 +69,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 }
                 if (player._posX == _posX + 1 && player._posY == _posY)
                 {
-                    player.TakeDamage(_damage);
+                    player._health.TakeDamage(_damage);
                     player._lastEncounteredEnemy = enemyTurn;
                     return;
                 }
@@ -94,7 +96,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 }
                 if (player._posX == _posX && player._posY == _posY-1)
                 {
-                    player.TakeDamage(_damage);
+                    player._health.TakeDamage(_damage);
                     player._lastEncounteredEnemy = enemyTurn;
                     return;
                 }
@@ -121,7 +123,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 }
                 if (player._posX == _posX && player._posY == _posY + 1)
                 {
-                    player.TakeDamage(_damage);
+                    player._health.TakeDamage(_damage);
                     player._lastEncounteredEnemy = enemyTurn;
                     return;
                 }

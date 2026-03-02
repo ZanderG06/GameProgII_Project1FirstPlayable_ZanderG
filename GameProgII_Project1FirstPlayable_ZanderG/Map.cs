@@ -8,10 +8,7 @@ using System.Threading.Tasks;
 namespace GameProgII_Project1FirstPlayable_ZanderG
 {
     internal class Map
-    {
-        //I'm putting gold in the Map class, hope that's right
-        public List<(int, int)> gold = new List<(int, int)>();
-
+    {   
         //Gets path of map file then makes array
         static string mapLayout = "mapFile.txt";
         public string[] mapInGame = File.ReadAllLines(mapLayout);
@@ -21,37 +18,8 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
         
         public int mapHeight { get { return mapInGame[0].Length;} }
 
-        public void CreateGold()
-        {
-            int amountOfGold = 5;
-            Random random = new Random();
 
-            for (int i = 0; i < amountOfGold; i++)
-            {
-                //The -1s are just so the gold doesn't spawn near the walls, I want all the gold to be near the middle
-                int randomX = random.Next(1, mapLength-1);
-                int randomY = random.Next(1, mapHeight-1);
-
-                //Makes sure gold is actually accessible
-                if(mapInGame[randomX][randomY] != '*')
-                {
-                    i--;
-                    continue;
-                }
-                //This loop prevents gold from spawning on top of eachother
-                for(int j = 0; j < i; j++)
-                {
-                    if(gold.Equals((randomX, randomY)))
-                    {
-                        i--;
-                        break;
-                    }
-                }
-                gold.Add((randomX, randomY));
-            }
-        }
-
-        public void PrintMap()
+        public void PrintMap(List<(int, int)> gold)
         {
             Console.SetCursorPosition(0,0);
 

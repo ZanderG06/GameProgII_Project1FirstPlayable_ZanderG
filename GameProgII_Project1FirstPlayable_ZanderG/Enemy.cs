@@ -24,7 +24,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             _map = gameMap;
         }
 
-        public void MoveEnemy(Player player, List<Enemy> enemy, int enemyTurn)
+        public void Move(Player player, List<Enemy> enemy, int enemyTurn, List<(int, int)> gold)
         {
             if(_health.health <= 0) return;
             Thread.Sleep(250);
@@ -34,9 +34,9 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 
             if(targetX < 0 && _map.mapInGame[_posY][_posX - 1] == '*' || targetX < 0 && _map.mapInGame[_posY][_posX - 1] == '+')
             {
-                if (_map.gold.Contains((_posY, _posX-1))) //Enemies picking up gold is on purpose, their damage can go up like the Player
+                if (gold.Contains((_posY, _posX-1))) //Enemies picking up gold is on purpose, their damage can go up like the Player
                 {
-                    _map.gold.Remove((_posY, _posX-1));
+                    gold.Remove((_posY, _posX-1));
                     _damage++;
                     return;
                 }
@@ -61,9 +61,9 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             }
             else if (targetX > 0 && _map.mapInGame[_posY][_posX + 1] == '*' || targetX > 0 && _map.mapInGame[_posY][_posX + 1] == '+')
             {
-                if (_map.gold.Contains((_posY, _posX + 1)))
+                if (gold.Contains((_posY, _posX + 1)))
                 {
-                    _map.gold.Remove((_posY, _posX + 1));
+                    gold.Remove((_posY, _posX + 1));
                     _damage++;
                     return;
                 }
@@ -88,9 +88,9 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             }
             else if (targetY < 0 && _map.mapInGame[_posY-1][_posX] == '*' || targetY < 0 && _map.mapInGame[_posY - 1][_posX] == '+')
             {
-                if (_map.gold.Contains((_posY-1, _posX)))
+                if (gold.Contains((_posY-1, _posX)))
                 {
-                    _map.gold.Remove((_posY-1, _posX));
+                    gold.Remove((_posY-1, _posX));
                     _damage++;
                     return;
                 }
@@ -115,9 +115,9 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             }
             else if (targetY > 0 && _map.mapInGame[_posY + 1][_posX] == '*' || targetY > 0 && _map.mapInGame[_posY + 1][_posX] == '+')
             {
-                if (_map.gold.Contains((_posY + 1, _posX)))
+                if (gold.Contains((_posY + 1, _posX)))
                 {
-                    _map.gold.Remove((_posY + 1, _posX));
+                    gold.Remove((_posY + 1, _posX));
                     _damage++;
                     return;
                 }

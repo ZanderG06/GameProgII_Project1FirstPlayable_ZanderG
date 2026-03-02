@@ -27,7 +27,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             _lastEncounteredEnemy = lastEncounteredEnemy;
         }
 
-        public void Move(ConsoleKey input, List<Enemy> enemy, Player player)
+        public void Move(ConsoleKey input, List<Enemy> enemy, Player player, List<(int, int)> gold)
         {
             switch (input)
             {
@@ -35,9 +35,9 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 case ConsoleKey.UpArrow:
                     if (_posY <= 0) break;
                     if (_map.mapInGame[_posY-1][_posX] == '|' || _map.mapInGame[_posY - 1][_posX] == '-' || _map.mapInGame[_posY - 1][_posX] == '~') break;
-                    if (_map.gold.Contains((_posY - 1, _posX)))
+                    if (gold.Contains((_posY - 1, _posX)))
                     {
-                        _map.gold.Remove((_posY - 1, _posX));
+                        gold.Remove((_posY - 1, _posX));
                         _damage++;
                         break;
                     }
@@ -58,9 +58,9 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 case ConsoleKey.DownArrow:
                     if (_posY >= _map.mapLength-1) break;
                     if (_map.mapInGame[_posY + 1][_posX] == '|' || _map.mapInGame[_posY + 1][_posX] == '-' || _map.mapInGame[_posY + 1][_posX] == '~') break;
-                    if (_map.gold.Contains((_posY + 1, _posX)))
+                    if (gold.Contains((_posY + 1, _posX)))
                     {
-                        _map.gold.Remove((_posY + 1, _posX));
+                        gold.Remove((_posY + 1, _posX));
                         _damage++;
                         break;
                     }
@@ -81,9 +81,9 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 case ConsoleKey.LeftArrow:
                     if (_posX <= 0) break;
                     if (_map.mapInGame[_posY][_posX-1] == '|' || _map.mapInGame[_posY][_posX-1] == '-' || _map.mapInGame[_posY][_posX-1] == '~') break;
-                    if (_map.gold.Contains((_posY, _posX-1)))
+                    if (gold.Contains((_posY, _posX-1)))
                     {
-                        _map.gold.Remove((_posY, _posX - 1));
+                        gold.Remove((_posY, _posX - 1));
                         _damage++;
                         break;
                     }
@@ -104,9 +104,9 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 case ConsoleKey.RightArrow:
                     if (_posX >= _map.mapHeight-1) break;
                     if (_map.mapInGame[_posY][_posX + 1] == '|' || _map.mapInGame[_posY][_posX + 1] == '-' || _map.mapInGame[_posY][_posX + 1] == '~') break;
-                    if (_map.gold.Contains((_posY, _posX + 1)))
+                    if (gold.Contains((_posY, _posX + 1)))
                     {
-                        _map.gold.Remove((_posY, _posX + 1));
+                        gold.Remove((_posY, _posX + 1));
                         _damage++;
                         break;
                     }

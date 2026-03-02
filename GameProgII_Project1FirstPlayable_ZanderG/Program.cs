@@ -11,6 +11,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
         static void Main(string[] args)
         {
             Map map = new Map();
+            Gold gold = new Gold();
 
             Player player = new Player(hp: 10, posX: 0, posY: 0, damage: 1, gameMap: map, lastEncounteredEnemy: 0);
             Enemy enemy1 = new Enemy(hp: 6, posX: 17, posY: 11, damage: 1, gameMap: map);
@@ -21,21 +22,21 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             enemies.Add(enemy2);
 
             bool isPlaying = true;
-            map.CreateGold();
-            map.PrintMap();
+            gold.CreateGold(map);
+            map.PrintMap(gold.gold);
             DrawPlayers(player, enemies);
 
             while(isPlaying)
             {
                 map.PrintHUD("Player's Turn", player, enemies);
                 ConsoleKey playerInput = Console.ReadKey(true).Key;
-                player.Move(playerInput, enemies, player);
+                player.Move(playerInput, enemies, player, gold.gold);
                 
                 for(int i = 0; i < enemies.Count; i++)
                 {
                     map.PrintHUD($"Enemy{i+1}'s Turn", player, enemies);
-                    enemies[i].MoveEnemy(player, enemies, i);
-                    map.PrintMap();
+                    enemies[i].Move(player, enemies, i, gold.gold);
+                    map.PrintMap(gold.gold);
                     DrawPlayers(player, enemies);
                 }
 
@@ -46,11 +47,11 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     Console.Clear();
                     if (player._health.health == 0)
                     {
-                        Console.WriteLine("Game Over! You lose.");
+                        Console.WriteLine("Game Over! You lose.", gold.gold);
                     }
                     else
                     {
-                        Console.WriteLine("Congratulations! You win!");
+                        Console.WriteLine("Congratulations! You win!", gold.gold);
                     }
                     Console.ReadKey(true);
                 }

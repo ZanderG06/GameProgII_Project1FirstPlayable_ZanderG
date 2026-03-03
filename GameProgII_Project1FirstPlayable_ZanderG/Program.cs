@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace GameProgII_Project1FirstPlayable_ZanderG
@@ -14,16 +15,16 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             Gold gold = new Gold();
 
             Player player = new Player(hp: 10, posX: 0, posY: 0, damage: 1, gameMap: map, lastEncounteredEnemy: 0);
-            Enemy enemy1 = new Enemy(hp: 6, posX: 17, posY: 11, damage: 1, gameMap: map);
-            Enemy enemy2 = new Enemy(hp: 6, posX: 17, posY: 0, damage: 2, gameMap: map);
-            Enemy enemy3 = new Enemy(hp: 6, posX: 0, posY: 11, damage: 3, gameMap: map);
+            Enemy enemy1 = new Enemy(hp: 6, posX: 17, posY: 11, damage: 2, gameMap: map);
+            Enemy enemy2 = new Enemy(hp: 6, posX: 17, posY: 0, damage: 3, gameMap: map);
+            Enemy enemy3 = new Enemy(hp: 6, posX: 0, posY: 11, damage: 1, gameMap: map);
 
             List<Enemy> enemies = new List<Enemy>();
             enemies.Add(enemy1);
             enemies.Add(enemy2);
             enemies.Add(enemy3);
 
-            char[] enemyIcons = { '#', 'R', '0' };
+            char[] enemyIcons = { '#', 'R', '2' }; // # = Normal, R = Random, 2 = Moves Twice
 
             map.mapColors.Add('*', ConsoleColor.Green);
             map.mapColors.Add('~', ConsoleColor.Blue);
@@ -43,6 +44,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 for(int i = 0; i < enemies.Count; i++)
                 {
                     map.PrintHUD($"Enemy{i+1}'s Turn", player, enemies);
+                    Thread.Sleep(250);
                     enemies[i].Move(player, enemies, i, gold.gold, enemyIcons);
                     map.PrintMap(gold.gold);
                     DrawPlayers(player, enemies, enemyIcons);

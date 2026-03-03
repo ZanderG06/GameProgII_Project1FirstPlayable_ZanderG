@@ -8,6 +8,8 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 {
     internal class Program
     {
+        static char[] enemyIcons = { '#', 'R', '0' };
+
         static void Main(string[] args)
         {
             Map map = new Map();
@@ -15,11 +17,13 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 
             Player player = new Player(hp: 10, posX: 0, posY: 0, damage: 1, gameMap: map, lastEncounteredEnemy: 0);
             Enemy enemy1 = new Enemy(hp: 6, posX: 17, posY: 11, damage: 1, gameMap: map);
-            Enemy enemy2 = new Enemy(hp: 6, posX: 17, posY: 0, damage: 1, gameMap: map);
+            Enemy enemy2 = new Enemy(hp: 6, posX: 17, posY: 0, damage: 2, gameMap: map);
+            Enemy enemy3 = new Enemy(hp: 6, posX: 0, posY: 11, damage: 3, gameMap: map);
 
             List<Enemy> enemies = new List<Enemy>();
             enemies.Add(enemy1);
             enemies.Add(enemy2);
+            enemies.Add(enemy3);
 
             map.mapColors.Add('*', ConsoleColor.Green);
             map.mapColors.Add('~', ConsoleColor.Blue);
@@ -51,11 +55,11 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     Console.Clear();
                     if (player._health.health == 0)
                     {
-                        Console.WriteLine("Game Over! You lose.", gold.gold);
+                        Console.WriteLine("Game Over! You lose.");
                     }
                     else
                     {
-                        Console.WriteLine("Congratulations! You win!", gold.gold);
+                        Console.WriteLine("Congratulations! You win!");
                     }
                     Console.ReadKey(true);
                 }
@@ -83,7 +87,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 {
                     Console.SetCursorPosition(enemy[i]._posX + 1, enemy[i]._posY + 1);
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine('#');
+                    Console.Write(enemyIcons[i]);
                 }
                 else
                 {

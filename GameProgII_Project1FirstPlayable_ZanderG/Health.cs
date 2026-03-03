@@ -19,8 +19,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 
         public void Heal()
         {
-            if (health < maxHealth)
-                health++;
+            if (health < maxHealth) health++;
         }
 
         public void TakeDamage(int damage)

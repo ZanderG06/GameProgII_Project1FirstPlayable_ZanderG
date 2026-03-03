@@ -22,8 +22,6 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 
         public void PrintMap(List<(int, int)> gold)
         {
-            
-
             Console.SetCursorPosition(0,0);
 
             //The +2 is just for the corners, hope it doesn't count as magic number :D

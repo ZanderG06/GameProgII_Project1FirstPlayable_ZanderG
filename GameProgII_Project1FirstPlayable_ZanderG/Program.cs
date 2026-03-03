@@ -8,8 +8,6 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 {
     internal class Program
     {
-        static char[] enemyIcons = { '#', 'R', '0' };
-
         static void Main(string[] args)
         {
             Map map = new Map();
@@ -25,6 +23,8 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             enemies.Add(enemy2);
             enemies.Add(enemy3);
 
+            char[] enemyIcons = { '#', 'R', '0' };
+
             map.mapColors.Add('*', ConsoleColor.Green);
             map.mapColors.Add('~', ConsoleColor.Blue);
             map.mapColors.Add('+', ConsoleColor.Magenta);
@@ -32,7 +32,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             bool isPlaying = true;
             gold.CreateGold(map);
             map.PrintMap(gold.gold);
-            DrawPlayers(player, enemies);
+            DrawPlayers(player, enemies, enemyIcons);
 
             while (isPlaying)
             {
@@ -43,9 +43,9 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 for(int i = 0; i < enemies.Count; i++)
                 {
                     map.PrintHUD($"Enemy{i+1}'s Turn", player, enemies);
-                    enemies[i].Move(player, enemies, i, gold.gold);
+                    enemies[i].Move(player, enemies, i, gold.gold, enemyIcons);
                     map.PrintMap(gold.gold);
-                    DrawPlayers(player, enemies);
+                    DrawPlayers(player, enemies, enemyIcons);
                 }
 
                 isPlaying = CheckIfGameOver(player, enemies);
@@ -66,7 +66,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             }
         }
 
-        static void DrawPlayers(Player player, List<Enemy> enemy)
+        static void DrawPlayers(Player player, List<Enemy> enemy, char[] enemyIcons)
         {
             //Player, if statement makes sure player/enemies are alive before drawing
             if (player._health.health > 0)

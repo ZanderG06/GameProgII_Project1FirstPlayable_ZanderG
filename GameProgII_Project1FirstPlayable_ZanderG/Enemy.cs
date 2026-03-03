@@ -24,7 +24,8 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             _map = gameMap;
         }
 
-        public void Move(Player player, List<Enemy> enemy, int enemyTurn, List<(int, int)> gold)
+        //SO MANY IF STATEMENTS
+        public void Move(Player player, List<Enemy> enemy, int enemyTurn, List<(int, int)> gold, char[] enemyIcons)
         {
             if(_health.health <= 0) return;
             Thread.Sleep(250);
@@ -32,113 +33,243 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             int targetX = player._posX - _posX;
             int targetY = player._posY - _posY;
 
-            if(targetX < 0 && _map.mapInGame[_posY][_posX - 1] == '*' || targetX < 0 && _map.mapInGame[_posY][_posX - 1] == '+')
+            if (enemyIcons[enemyTurn] == '#')
             {
-                if (gold.Contains((_posY, _posX-1))) //Enemies picking up gold is on purpose, their damage can go up like the Player
+                if (targetX < 0 && _map.mapInGame[_posY][_posX - 1] == '*' || targetX < 0 && _map.mapInGame[_posY][_posX - 1] == '+')
                 {
-                    gold.Remove((_posY, _posX-1));
-                    _damage++;
-                    return;
-                }
-                if(player._posX == _posX - 1 && player._posY == _posY)
-                {
-                    player._health.TakeDamage(_damage);
-                    player._lastEncounteredEnemy = enemyTurn;
-                    return;
-                }
-                for(int i = 0; i < enemy.Count; i++)
-                {
-                    if(i == enemyTurn) //Makes it so that the enemy doesn't check for itself when trying to move
+                    if (gold.Contains((_posY, _posX - 1))) //Enemies picking up gold is on purpose, their damage can go up like the Player
                     {
-                        continue;
-                    }
-                    if (enemy[i]._posX == _posX - 1 && enemy[i]._posY == _posY)
-                    {
+                        gold.Remove((_posY, _posX - 1));
+                        _damage++;
                         return;
                     }
+                    if (player._posX == _posX - 1 && player._posY == _posY)
+                    {
+                        player._health.TakeDamage(_damage);
+                        player._lastEncounteredEnemy = enemyTurn;
+                        return;
+                    }
+                    for (int i = 0; i < enemy.Count; i++)
+                    {
+                        if (i == enemyTurn) //Makes it so that the enemy doesn't check for itself when trying to move
+                        {
+                            continue;
+                        }
+                        if (enemy[i]._posX == _posX - 1 && enemy[i]._posY == _posY)
+                        {
+                            return;
+                        }
+                    }
+                    _posX--;
                 }
-                _posX--;
+                else if (targetX > 0 && _map.mapInGame[_posY][_posX + 1] == '*' || targetX > 0 && _map.mapInGame[_posY][_posX + 1] == '+')
+                {
+                    if (gold.Contains((_posY, _posX + 1)))
+                    {
+                        gold.Remove((_posY, _posX + 1));
+                        _damage++;
+                        return;
+                    }
+                    if (player._posX == _posX + 1 && player._posY == _posY)
+                    {
+                        player._health.TakeDamage(_damage);
+                        player._lastEncounteredEnemy = enemyTurn;
+                        return;
+                    }
+                    for (int i = 0; i < enemy.Count; i++)
+                    {
+                        if (i == enemyTurn)
+                        {
+                            continue;
+                        }
+                        if (enemy[i]._posX == _posX + 1 && enemy[i]._posY == _posY)
+                        {
+                            return;
+                        }
+                    }
+                    _posX++;
+                }
+                else if (targetY < 0 && _map.mapInGame[_posY - 1][_posX] == '*' || targetY < 0 && _map.mapInGame[_posY - 1][_posX] == '+')
+                {
+                    if (gold.Contains((_posY - 1, _posX)))
+                    {
+                        gold.Remove((_posY - 1, _posX));
+                        _damage++;
+                        return;
+                    }
+                    if (player._posX == _posX && player._posY == _posY - 1)
+                    {
+                        player._health.TakeDamage(_damage);
+                        player._lastEncounteredEnemy = enemyTurn;
+                        return;
+                    }
+                    for (int i = 0; i < enemy.Count; i++)
+                    {
+                        if (i == enemyTurn)
+                        {
+                            continue;
+                        }
+                        if (enemy[i]._posX == _posX && enemy[i]._posY == _posY - 1)
+                        {
+                            return;
+                        }
+                    }
+                    _posY--;
+                }
+                else if (targetY > 0 && _map.mapInGame[_posY + 1][_posX] == '*' || targetY > 0 && _map.mapInGame[_posY + 1][_posX] == '+')
+                {
+                    if (gold.Contains((_posY + 1, _posX)))
+                    {
+                        gold.Remove((_posY + 1, _posX));
+                        _damage++;
+                        return;
+                    }
+                    if (player._posX == _posX && player._posY == _posY + 1)
+                    {
+                        player._health.TakeDamage(_damage);
+                        player._lastEncounteredEnemy = enemyTurn;
+                        return;
+                    }
+                    for (int i = 0; i < enemy.Count; i++)
+                    {
+                        if (i == enemyTurn)
+                        {
+                            continue;
+                        }
+                        if (enemy[i]._posX == _posX && enemy[i]._posY == _posY + 1)
+                        {
+                            return;
+                        }
+                    }
+                    _posY++;
+                }
             }
-            else if (targetX > 0 && _map.mapInGame[_posY][_posX + 1] == '*' || targetX > 0 && _map.mapInGame[_posY][_posX + 1] == '+')
+            else if (enemyIcons[enemyTurn] == 'R')
             {
-                if (gold.Contains((_posY, _posX + 1)))
+                Random random = new Random();
+
+                int randomDirection = random.Next(4); // 0 = left, 1 = right, 2 = up, 3 = down
+
+                if (randomDirection == 0)
                 {
-                    gold.Remove((_posY, _posX + 1));
-                    _damage++;
-                    return;
-                }
-                if (player._posX == _posX + 1 && player._posY == _posY)
-                {
-                    player._health.TakeDamage(_damage);
-                    player._lastEncounteredEnemy = enemyTurn;
-                    return;
-                }
-                for (int i = 0; i < enemy.Count; i++)
-                {
-                    if (i == enemyTurn)
+                    if (_posX - 1 >= 0 && (_map.mapInGame[_posY][_posX - 1] == '*' || _map.mapInGame[_posY][_posX - 1] == '+'))
                     {
-                        continue;
-                    }
-                    if (enemy[i]._posX == _posX + 1 && enemy[i]._posY == _posY)
-                    {
-                        return;
-                    }
-                }
-                _posX++;
-            }
-            else if (targetY < 0 && _map.mapInGame[_posY-1][_posX] == '*' || targetY < 0 && _map.mapInGame[_posY - 1][_posX] == '+')
-            {
-                if (gold.Contains((_posY-1, _posX)))
-                {
-                    gold.Remove((_posY-1, _posX));
-                    _damage++;
-                    return;
-                }
-                if (player._posX == _posX && player._posY == _posY-1)
-                {
-                    player._health.TakeDamage(_damage);
-                    player._lastEncounteredEnemy = enemyTurn;
-                    return;
-                }
-                for(int i = 0; i < enemy.Count; i++)
-                {
-                    if (i == enemyTurn)
-                    {
-                        continue;
-                    }
-                    if (enemy[i]._posX == _posX && enemy[i]._posY == _posY - 1)
-                    {
-                        return;
+                        if (gold.Contains((_posY, _posX - 1)))
+                        {
+                            gold.Remove((_posY, _posX - 1));
+                            _damage++;
+                            return;
+                        }
+                        if (player._posX == _posX - 1 && player._posY == _posY)
+                        {
+                            player._health.TakeDamage(_damage);
+                            player._lastEncounteredEnemy = enemyTurn;
+                            return;
+                        }
+                        for (int i = 0; i < enemy.Count; i++)
+                        {
+                            if (i == enemyTurn)
+                            {
+                                continue;
+                            }
+                            if (enemy[i]._posX == _posX - 1 && enemy[i]._posY == _posY)
+                            {
+                                return;
+                            }
+                        }
+                        _posX--;
                     }
                 }
-                _posY--;
-            }
-            else if (targetY > 0 && _map.mapInGame[_posY + 1][_posX] == '*' || targetY > 0 && _map.mapInGame[_posY + 1][_posX] == '+')
-            {
-                if (gold.Contains((_posY + 1, _posX)))
+                else if (randomDirection == 1)
                 {
-                    gold.Remove((_posY + 1, _posX));
-                    _damage++;
-                    return;
-                }
-                if (player._posX == _posX && player._posY == _posY + 1)
-                {
-                    player._health.TakeDamage(_damage);
-                    player._lastEncounteredEnemy = enemyTurn;
-                    return;
-                }
-                for(int i = 0; i < enemy.Count; i++)
-                {
-                    if (i == enemyTurn)
+                    if (_posX + 1 <= _map.mapHeight && (_map.mapInGame[_posY][_posX + 1] == '*' || _map.mapInGame[_posY][_posX + 1] == '+'))
                     {
-                        continue;
-                    }
-                    if (enemy[i]._posX == _posX && enemy[i]._posY == _posY + 1)
-                    {
-                        return;
+                        if (gold.Contains((_posY, _posX + 1)))
+                        {
+                            gold.Remove((_posY, _posX + 1));
+                            _damage++;
+                            return;
+                        }
+                        if (player._posX == _posX + 1 && player._posY == _posY)
+                        {
+                            player._health.TakeDamage(_damage);
+                            player._lastEncounteredEnemy = enemyTurn;
+                            return;
+                        }
+                        for (int i = 0; i < enemy.Count; i++)
+                        {
+                            if (i == enemyTurn)
+                            {
+                                continue;
+                            }
+                            if (enemy[i]._posX == _posX + 1 && enemy[i]._posY == _posY)
+                            {
+                                return;
+                            }
+                        }
+                        _posX++;
                     }
                 }
-                _posY++;
+                else if (randomDirection == 2)
+                {
+                    if (_posY - 1 >= 0 && (_map.mapInGame[_posY - 1][_posX] == '*' || _map.mapInGame[_posY - 1][_posX] == '+'))
+                    {
+                        if (gold.Contains((_posY - 1, _posX)))
+                        {
+                            gold.Remove((_posY - 1, _posX));
+                            _damage++;
+                            return;
+                        }
+                        if (player._posX == _posX && player._posY == _posY - 1)
+                        {
+                            player._health.TakeDamage(_damage);
+                            player._lastEncounteredEnemy = enemyTurn;
+                            return;
+                        }
+                        for (int i = 0; i < enemy.Count; i++)
+                        {
+                            if (i == enemyTurn)
+                            {
+                                continue;
+                            }
+                            if (enemy[i]._posX == _posX && enemy[i]._posY == _posY - 1)
+                            {
+                                return;
+                            }
+                        }
+                        _posY--;
+                    }
+                }
+                else
+                {
+                    if (_posY + 1 <= _map.mapLength && (_map.mapInGame[_posY + 1][_posX] == '*' || _map.mapInGame[_posY + 1][_posX] == '+'))
+                    {
+                        if (gold.Contains((_posY + 1, _posX)))
+                        {
+                            gold.Remove((_posY + 1, _posX));
+                            _damage++;
+                            return;
+                        }
+                        if (player._posX == _posX && player._posY == _posY + 1)
+                        {
+                            player._health.TakeDamage(_damage);
+                            player._lastEncounteredEnemy = enemyTurn;
+                            return;
+                        }
+                        for (int i = 0; i < enemy.Count; i++)
+                        {
+                            if (i == enemyTurn)
+                            {
+                                continue;
+                            }
+                            if (enemy[i]._posX == _posX && enemy[i]._posY == _posY + 1)
+                            {
+                                return;
+                            }
+                        }
+                        _posY++;
+                    }
+                }
             }
         }
     }

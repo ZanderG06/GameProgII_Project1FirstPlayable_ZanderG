@@ -45,7 +45,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     int targetX = player._posX - _posX;
                     int targetY = player._posY - _posY;
 
-                    if (targetX < 0 && _map.mapInGame[_posY][_posX - 1] == '*' || targetX < 0 && _map.mapInGame[_posY][_posX - 1] == '+')
+                    if (targetX < 0 && _map.mapInGame[_posY][_posX - 1] == '*' || targetX < 0 && _map.mapInGame[_posY][_posX - 1] == '+' || targetX < 0 && _map.mapInGame[_posY][_posX - 1] == '=')
                     {
                         bool checkItemLeft = CheckForItem(gold, healthUp, healthMax, _posX - 1, _posY); //Enemies picking up items is on purpose
                         if (checkItemLeft) continue;
@@ -66,9 +66,11 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                                 break;
                             }
                         }
+                        if (_map.mapInGame[_posY][_posX - 1] == '+') _health.Heal(1);
+                        if (_map.mapInGame[_posY][_posX - 1] == '=') _health.TakeDamage(1);
                         _posX--;
                     }
-                    else if (targetX > 0 && _map.mapInGame[_posY][_posX + 1] == '*' || targetX > 0 && _map.mapInGame[_posY][_posX + 1] == '+')
+                    else if (targetX > 0 && _map.mapInGame[_posY][_posX + 1] == '*' || targetX > 0 && _map.mapInGame[_posY][_posX + 1] == '+' || targetX > 0 && _map.mapInGame[_posY][_posX + 1] == '=')
                     {
                         bool checkItemRight = CheckForItem(gold, healthUp, healthMax, _posX + 1, _posY);
                         if (checkItemRight) continue;
@@ -89,9 +91,11 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                                 break;
                             }
                         }
+                        if (_map.mapInGame[_posY][_posX + 1] == '+') _health.Heal(1);
+                        if (_map.mapInGame[_posY][_posX + 1] == '=') _health.TakeDamage(1);
                         _posX++;
                     }
-                    else if (targetY < 0 && _map.mapInGame[_posY - 1][_posX] == '*' || targetY < 0 && _map.mapInGame[_posY - 1][_posX] == '+')
+                    else if (targetY < 0 && _map.mapInGame[_posY - 1][_posX] == '*' || targetY < 0 && _map.mapInGame[_posY - 1][_posX] == '+' || targetY < 0 && _map.mapInGame[_posY - 1][_posX] == '=')
                     {
                         bool checkItemUp = CheckForItem(gold, healthUp, healthMax, _posX, _posY - 1);
                         if (checkItemUp) continue;
@@ -112,9 +116,11 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                                 break;
                             }
                         }
+                        if (_map.mapInGame[_posY-1][_posX] == '+') _health.Heal(1);
+                        if (_map.mapInGame[_posY-1][_posX] == '=') _health.TakeDamage(1);
                         _posY--;
                     }
-                    else if (targetY > 0 && _map.mapInGame[_posY + 1][_posX] == '*' || targetY > 0 && _map.mapInGame[_posY + 1][_posX] == '+')
+                    else if (targetY > 0 && _map.mapInGame[_posY + 1][_posX] == '*' || targetY > 0 && _map.mapInGame[_posY + 1][_posX] == '+' || targetY > 0 && _map.mapInGame[_posY + 1][_posX] == '=')
                     {
                         bool checkItemDown = CheckForItem(gold, healthUp, healthMax, _posX, _posY + 1);
                         if (checkItemDown) continue;
@@ -135,6 +141,8 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                                 break;
                             }
                         }
+                        if (_map.mapInGame[_posY + 1][_posX] == '+') _health.Heal(1);
+                        if (_map.mapInGame[_posY + 1][_posX] == '=') _health.TakeDamage(1);
                         _posY++;
                     }
                 }
@@ -147,7 +155,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 
                 if (randomDirection == 0)
                 {
-                    if (_posX - 1 >= 0 && (_map.mapInGame[_posY][_posX - 1] == '*' || _map.mapInGame[_posY][_posX - 1] == '+'))
+                    if (_posX - 1 >= 0 && (_map.mapInGame[_posY][_posX - 1] == '*' || _map.mapInGame[_posY][_posX - 1] == '+' || _map.mapInGame[_posY][_posX - 1] == '='))
                     {
                         bool checkItem = CheckForItem(gold, healthUp, healthMax, _posX - 1, _posY); //Enemies picking up items is on purpose
                         if (checkItem) return;
@@ -168,12 +176,14 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                                 return;
                             }
                         }
+                        if (_map.mapInGame[_posY][_posX-1] == '+') _health.Heal(1);
+                        if (_map.mapInGame[_posY][_posX-1] == '=') _health.TakeDamage(1);
                         _posX--;
                     }
                 }
                 else if (randomDirection == 1)
                 {
-                    if (_posX + 1 < _map.mapHeight && (_map.mapInGame[_posY][_posX + 1] == '*' || _map.mapInGame[_posY][_posX + 1] == '+'))
+                    if (_posX + 1 < _map.mapHeight && (_map.mapInGame[_posY][_posX + 1] == '*' || _map.mapInGame[_posY][_posX + 1] == '+' || _map.mapInGame[_posY][_posX + 1] == '='))
                     {
                         bool checkItem = CheckForItem(gold, healthUp, healthMax, _posX + 1, _posY);
                         if (checkItem) return;
@@ -194,12 +204,14 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                                 return;
                             }
                         }
+                        if (_map.mapInGame[_posY][_posX + 1] == '+') _health.Heal(1);
+                        if (_map.mapInGame[_posY][_posX + 1] == '=') _health.TakeDamage(1);
                         _posX++;
                     }
                 }
                 else if (randomDirection == 2)
                 {
-                    if (_posY - 1 >= 0 && (_map.mapInGame[_posY - 1][_posX] == '*' || _map.mapInGame[_posY - 1][_posX] == '+'))
+                    if (_posY - 1 >= 0 && (_map.mapInGame[_posY - 1][_posX] == '*' || _map.mapInGame[_posY - 1][_posX] == '+' || _map.mapInGame[_posY - 1][_posX] == '='))
                     {
                         bool checkItem = CheckForItem(gold, healthUp, healthMax, _posX, _posY - 1);
                         if (checkItem) return;
@@ -220,6 +232,8 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                                 return;
                             }
                         }
+                        if (_map.mapInGame[_posY-1][_posX] == '+') _health.Heal(1);
+                        if (_map.mapInGame[_posY-1][_posX] == '=') _health.TakeDamage(1);
                         _posY--;
                     }
                 }
@@ -246,6 +260,8 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                                 return;
                             }
                         }
+                        if (_map.mapInGame[_posY + 1][_posX] == '+') _health.Heal(1);
+                        if (_map.mapInGame[_posY + 1][_posX] == '=') _health.TakeDamage(1);
                         _posY++;
                     }
                 }

@@ -29,6 +29,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             map.mapColors.Add('*', ConsoleColor.Green);
             map.mapColors.Add('~', ConsoleColor.Blue);
             map.mapColors.Add('+', ConsoleColor.Magenta);
+            map.mapColors.Add('=', ConsoleColor.DarkRed);
 
             bool isPlaying = true;
 

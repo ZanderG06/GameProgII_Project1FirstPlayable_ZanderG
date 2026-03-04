@@ -31,7 +31,11 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 
             int moveAttempts;
 
-            if(enemyIcons[enemyTurn] == '2') moveAttempts = 2;
+            if(enemyIcons[enemyTurn] == '2')
+            {
+                Random random = new Random();
+                moveAttempts = random.Next(1, 3);
+            }
             else moveAttempts = 1;
 
             if (enemyIcons[enemyTurn] == '#' || enemyIcons[enemyTurn] == '2')

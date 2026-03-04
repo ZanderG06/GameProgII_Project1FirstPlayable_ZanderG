@@ -12,7 +12,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
         static void Main(string[] args)
         {
             Map map = new Map();
-            Gold gold = new Gold();
+            Collectables gold = new Collectables();
 
             Player player = new Player(hp: 10, posX: 0, posY: 0, damage: 1, gameMap: map, lastEncounteredEnemy: 0);
             Enemy enemy1 = new Enemy(hp: 6, posX: 17, posY: 11, damage: 2, gameMap: map);

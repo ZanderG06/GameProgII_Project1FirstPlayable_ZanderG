@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameProgII_Project1FirstPlayable_ZanderG
 {
-    internal class Gold
+    internal class Collectables
     {
         public List<(int, int)> gold = new List<(int, int)>();
         public int amountOfGold = 5;

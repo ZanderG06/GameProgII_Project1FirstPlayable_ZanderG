@@ -12,6 +12,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
         static void Main(string[] args)
         {
             Map map = new Map();
+            Hud hud = new Hud();
             Collectables collectables = new Collectables();
 
             Player player = new Player(hp: 10, posX: 0, posY: 0, damage: 1, gameMap: map, lastEncounteredEnemy: 0);
@@ -42,13 +43,13 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 
             while (isPlaying)
             {
-                map.PrintHUD("Player's Turn", player, enemies);
+                hud.PrintHUD("Player's Turn", player, enemies, map);
                 ConsoleKey playerInput = Console.ReadKey(true).Key;
                 player.Move(playerInput, enemies, player, collectables.gold, collectables.healthUp, collectables.healthMax);
                 
                 for(int i = 0; i < enemies.Count; i++)
                 {
-                    map.PrintHUD($"Enemy{i+1}'s Turn", player, enemies);
+                    hud.PrintHUD($"Enemy{i+1}'s Turn", player, enemies, map);
                     Thread.Sleep(250);
                     enemies[i].Move(player, enemies, i, collectables.gold, collectables.healthUp, collectables.healthMax, enemyIcons);
                     map.PrintMap(collectables.gold, collectables.healthUp, collectables.healthMax);

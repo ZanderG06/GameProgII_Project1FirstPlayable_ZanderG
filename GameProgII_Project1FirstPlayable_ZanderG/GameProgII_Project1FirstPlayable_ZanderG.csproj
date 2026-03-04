@@ -46,6 +46,7 @@
     <Compile Include="Collectables.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="Health.cs" />
+    <Compile Include="Hud.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />

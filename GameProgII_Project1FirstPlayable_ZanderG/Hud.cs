@@ -22,6 +22,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 
         public void ChangeEventLog(string eventLogText, Map map)
         {
+            //+14 puts Event Log at bottom
             Console.SetCursorPosition(0, map.mapLength + 14);
             Console.Write($"Last Event: {eventLogText}                                                                                            ");
         }

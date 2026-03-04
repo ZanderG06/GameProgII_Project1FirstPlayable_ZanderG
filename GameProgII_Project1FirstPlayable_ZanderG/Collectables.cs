@@ -20,7 +20,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 
         //Time Freeze
         public List<(int, int)> healthMax = new List<(int, int)>();
-        public int amountOfHealthMax = 1;
+        public int amountOfHealthMax = 1; //Rare Item
 
         public void CreateGold(Map gameMap)
         {

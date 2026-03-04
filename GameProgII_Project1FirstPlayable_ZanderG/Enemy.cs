@@ -27,20 +27,20 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
         }
 
         //SO MANY IF STATEMENTS
-        public void Move(Player player, List<Enemy> enemy, int enemyTurn, List<(int, int)> gold, List<(int, int)> healthUp, List<(int, int)> healthMax, char[] enemyIcons, Hud hud)
+        public void Move(Player player, List<Enemy> enemy, int enemyTurn, List<(int, int)> gold, List<(int, int)> healthUp, List<(int, int)> healthMax, Hud hud)
         {
             if(_health.health <= 0) return;
 
             int moveAttempts;
 
-            if(enemyIcons[enemyTurn] == '2')
+            if(_icon == '2')
             {
                 Random random = new Random();
                 moveAttempts = random.Next(1, 3);
             }
             else moveAttempts = 1;
 
-            if (enemyIcons[enemyTurn] == '#' || enemyIcons[enemyTurn] == '2')
+            if (_icon == '#' || _icon == '2')
             {
                 for (int j = 0; j < moveAttempts; j++)
                 {

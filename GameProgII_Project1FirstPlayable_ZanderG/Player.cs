@@ -27,7 +27,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             _lastEncounteredEnemy = lastEncounteredEnemy;
         }
 
-        public void Move(ConsoleKey input, List<Enemy> enemy, Player player, List<(int, int)> gold, List<(int, int)> healthUp, List<(int, int)> healthMax)
+        public void Move(ConsoleKey input, List<Enemy> enemy, Player player, List<(int, int)> gold, List<(int, int)> healthUp, List<(int, int)> healthMax, Hud hud)
         {
             switch (input)
             {
@@ -35,7 +35,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 case ConsoleKey.UpArrow:
                     if (_posY <= 0) break;
                     if (_map.mapInGame[_posY-1][_posX] == '|' || _map.mapInGame[_posY - 1][_posX] == '-' || _map.mapInGame[_posY - 1][_posX] == '~') break;
-                    bool checkItemUp = CheckForItem(gold, healthUp, healthMax, _posX, _posY - 1);
+                    bool checkItemUp = CheckForItem(gold, healthUp, healthMax, _posX, _posY - 1, hud);
                     if (checkItemUp) break;
                     for(int i = 0; i < enemy.Count; i++)
                     {
@@ -43,11 +43,20 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                         {
                             enemy[i]._health.TakeDamage(_damage);
                             _lastEncounteredEnemy = i;
+                            hud.ChangeEventLog($"Player attacked enemy{i+1} for {_damage} damage", _map);
                             return; //return instead of break as break only stops the for loop
                         }
                     }
-                    if(_map.mapInGame[_posY - 1][_posX] == '+') _health.Heal(1);
-                    if (_map.mapInGame[_posY - 1][_posX] == '=') _health.TakeDamage(1);
+                    if(_map.mapInGame[_posY - 1][_posX] == '+')
+                    {
+                        _health.Heal(1);
+                        hud.ChangeEventLog("Player healed 1 health", _map);
+                    }
+                    if (_map.mapInGame[_posY - 1][_posX] == '=')
+                    {
+                        _health.TakeDamage(1);
+                        hud.ChangeEventLog("Player took 1 damage from Lava", _map);
+                    }
                     _posY--;
                     break;
                 
@@ -55,7 +64,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 case ConsoleKey.DownArrow:
                     if (_posY >= _map.mapLength-1) break;
                     if (_map.mapInGame[_posY + 1][_posX] == '|' || _map.mapInGame[_posY + 1][_posX] == '-' || _map.mapInGame[_posY + 1][_posX] == '~') break;
-                    bool checkItemDown = CheckForItem(gold, healthUp, healthMax, _posX, _posY + 1);
+                    bool checkItemDown = CheckForItem(gold, healthUp, healthMax, _posX, _posY + 1, hud);
                     if (checkItemDown) break;
                     for (int i = 0; i < enemy.Count; i++)
                     {
@@ -63,11 +72,20 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                         {
                             enemy[i]._health.TakeDamage(_damage);
                             _lastEncounteredEnemy = i;
+                            hud.ChangeEventLog($"Player attacked Enemy{i + 1} for {_damage} damage", _map);
                             return;
                         }
                     }
-                    if (_map.mapInGame[_posY + 1][_posX] == '+') _health.Heal(1);
-                    if (_map.mapInGame[_posY + 1][_posX] == '=') _health.TakeDamage(1);
+                    if (_map.mapInGame[_posY + 1][_posX] == '+') 
+                    {
+                        _health.Heal(1);
+                        hud.ChangeEventLog("Player healed 1 health", _map);
+                    }
+                    if (_map.mapInGame[_posY + 1][_posX] == '=')
+                    {
+                        _health.TakeDamage(1);
+                        hud.ChangeEventLog("Player took 1 damage from Lava", _map);
+                    }
                     _posY++;
                     break;
                 
@@ -75,7 +93,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 case ConsoleKey.LeftArrow:
                     if (_posX <= 0) break;
                     if (_map.mapInGame[_posY][_posX-1] == '|' || _map.mapInGame[_posY][_posX-1] == '-' || _map.mapInGame[_posY][_posX-1] == '~') break;
-                    bool checkItemLeft = CheckForItem(gold, healthUp, healthMax, _posX - 1, _posY);
+                    bool checkItemLeft = CheckForItem(gold, healthUp, healthMax, _posX - 1, _posY, hud);
                     if (checkItemLeft) break;
                     for (int i = 0; i < enemy.Count; i++)
                     {
@@ -83,11 +101,20 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                         {
                             enemy[i]._health.TakeDamage(_damage);
                             _lastEncounteredEnemy = i;
+                            hud.ChangeEventLog($"Player attacked Enemy{i + 1} for {_damage} damage", _map);
                             return;
                         }
                     }
-                    if (_map.mapInGame[_posY][_posX-1] == '+') _health.Heal(1);
-                    if (_map.mapInGame[_posY][_posX-1] == '=') _health.TakeDamage(1);
+                    if (_map.mapInGame[_posY][_posX-1] == '+')
+                    {
+                        _health.Heal(1);
+                        hud.ChangeEventLog("Player healed 1 health", _map);
+                    }
+                    if (_map.mapInGame[_posY][_posX-1] == '=')
+                    {
+                        _health.TakeDamage(1);
+                        hud.ChangeEventLog("Player took 1 damage from Lava", _map);
+                    }
                     _posX--;
                     break;
                 
@@ -95,7 +122,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 case ConsoleKey.RightArrow:
                     if (_posX >= _map.mapHeight-1) break;
                     if (_map.mapInGame[_posY][_posX + 1] == '|' || _map.mapInGame[_posY][_posX + 1] == '-' || _map.mapInGame[_posY][_posX + 1] == '~') break;
-                    bool checkItemRight = CheckForItem(gold, healthUp, healthMax, _posX + 1, _posY);
+                    bool checkItemRight = CheckForItem(gold, healthUp, healthMax, _posX + 1, _posY, hud);
                     if (checkItemRight) break;
                     for (int i = 0; i < enemy.Count; i++)
                     {
@@ -103,34 +130,46 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                         {
                             enemy[i]._health.TakeDamage(_damage);
                             _lastEncounteredEnemy = i;
+                            hud.ChangeEventLog($"Player attacked Enemy{i + 1} for {_damage} damage", _map);
                             return;
                         }
                     }
-                    if (_map.mapInGame[_posY][_posX + 1] == '+') _health.Heal(1);
-                    if (_map.mapInGame[_posY][_posX + 1] == '=') _health.TakeDamage(1);
+                    if (_map.mapInGame[_posY][_posX + 1] == '+')
+                    {
+                        _health.Heal(1);
+                        hud.ChangeEventLog("Player healed 1 health", _map);
+                    }
+                    if (_map.mapInGame[_posY][_posX + 1] == '=')
+                    {
+                        _health.TakeDamage(1);
+                        hud.ChangeEventLog("Player took 1 damage from Lava", _map);
+                    }
                     _posX++;
                     break;
             }
         }
 
-        public bool CheckForItem(List<(int, int)> gold, List<(int, int)> healthUp, List<(int, int)> healthMax, int Xpos, int Ypos)
+        public bool CheckForItem(List<(int, int)> gold, List<(int, int)> healthUp, List<(int, int)> healthMax, int Xpos, int Ypos, Hud hud)
         {
             if (gold.Contains((Ypos, Xpos)))
             {
                 gold.Remove((Ypos, Xpos));
                 _damage++;
+                hud.ChangeEventLog("Player damage went up by 1", _map);
                 return true;
             }
             if (healthUp.Contains((Ypos, Xpos)))
             {
                 healthUp.Remove((Ypos, Xpos));
                 _health.Heal(3);
+                hud.ChangeEventLog("Player healed 3 health points", _map);
                 return true;
             }
             if (healthMax.Contains((Ypos, Xpos)))
             {
                 healthMax.Remove((Ypos, Xpos));
                 _health.IncreaseMaxHealth();
+                hud.ChangeEventLog("Player's max health increased + full heal", _map);
                 return true;
             }
             return false;

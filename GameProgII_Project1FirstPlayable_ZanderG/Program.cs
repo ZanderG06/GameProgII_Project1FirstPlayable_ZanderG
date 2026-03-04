@@ -41,17 +41,19 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             map.PrintMap(collectables.gold, collectables.healthUp, collectables.healthMax);
             DrawPlayers(player, enemies, enemyIcons);
 
+            hud.ChangeEventLog("Game has started", map);
             while (isPlaying)
             {
                 hud.PrintHUD("Player's Turn", player, enemies, map);
+                
                 ConsoleKey playerInput = Console.ReadKey(true).Key;
-                player.Move(playerInput, enemies, player, collectables.gold, collectables.healthUp, collectables.healthMax);
+                player.Move(playerInput, enemies, player, collectables.gold, collectables.healthUp, collectables.healthMax, hud);
                 
                 for(int i = 0; i < enemies.Count; i++)
                 {
                     hud.PrintHUD($"Enemy{i+1}'s Turn", player, enemies, map);
                     Thread.Sleep(250);
-                    enemies[i].Move(player, enemies, i, collectables.gold, collectables.healthUp, collectables.healthMax, enemyIcons);
+                    enemies[i].Move(player, enemies, i, collectables.gold, collectables.healthUp, collectables.healthMax, enemyIcons, hud);
                     map.PrintMap(collectables.gold, collectables.healthUp, collectables.healthMax);
                     DrawPlayers(player, enemies, enemyIcons);
                 }

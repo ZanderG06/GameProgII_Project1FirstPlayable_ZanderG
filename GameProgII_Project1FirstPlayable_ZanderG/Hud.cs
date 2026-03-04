@@ -19,5 +19,11 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             Console.WriteLine($"\nEnemy{player._lastEncounteredEnemy + 1}'s Health: {enemy[player._lastEncounteredEnemy]._health.health}          ");
             Console.WriteLine($"\nEnemy{player._lastEncounteredEnemy + 1}'s Damage: {enemy[player._lastEncounteredEnemy]._damage}          ");
         }
+
+        public void ChangeEventLog(string eventLogText, Map map)
+        {
+            Console.SetCursorPosition(0, map.mapLength + 14);
+            Console.Write($"Last Event: {eventLogText}                                                                                            ");
+        }
     }
 }

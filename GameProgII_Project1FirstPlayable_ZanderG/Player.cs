@@ -58,6 +58,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                         hud.ChangeEventLog("Player took 1 damage from Lava", _map);
                     }
                     _posY--;
+                    while(Console.KeyAvailable) Console.ReadKey(true); //Keyboard auto-repeat handling
                     break;
                 
                 case ConsoleKey.S:
@@ -87,6 +88,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                         hud.ChangeEventLog("Player took 1 damage from Lava", _map);
                     }
                     _posY++;
+                    while (Console.KeyAvailable) Console.ReadKey(true);
                     break;
                 
                 case ConsoleKey.A:
@@ -116,6 +118,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                         hud.ChangeEventLog("Player took 1 damage from Lava", _map);
                     }
                     _posX--;
+                    while (Console.KeyAvailable) Console.ReadKey(true);
                     break;
                 
                 case ConsoleKey.D:
@@ -145,6 +148,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                         hud.ChangeEventLog("Player took 1 damage from Lava", _map);
                     }
                     _posX++;
+                    while (Console.KeyAvailable) Console.ReadKey(true);
                     break;
             }
         }

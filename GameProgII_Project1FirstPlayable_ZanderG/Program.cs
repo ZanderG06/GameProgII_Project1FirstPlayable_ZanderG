@@ -15,17 +15,21 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             Hud hud = new Hud();
             Collectables collectables = new Collectables();
 
+            char[] enemyIcons = { '#', 'R', '2' }; // # = Normal, R = Random, 2 = Moves Twice
+
             Player player = new Player(hp: 10, posX: 0, posY: 0, damage: 1, gameMap: map, lastEncounteredEnemy: 0);
-            Enemy enemy1 = new Enemy(hp: 6, posX: 17, posY: 11, damage: 2, gameMap: map);
-            Enemy enemy2 = new Enemy(hp: 6, posX: 17, posY: 0, damage: 3, gameMap: map);
-            Enemy enemy3 = new Enemy(hp: 6, posX: 0, posY: 11, damage: 1, gameMap: map);
+            Enemy enemy1 = new Enemy(hp: 6, posX: 17, posY: 11, damage: 2, gameMap: map, icon: '#');
+            Enemy enemy2 = new Enemy(hp: 6, posX: 17, posY: 0, damage: 3, gameMap: map, icon: 'R');
+            Enemy enemy3 = new Enemy(hp: 6, posX: 0, posY: 11, damage: 1, gameMap: map, icon: '2'); //Boss Enemy
+            Enemy enemy4 = new Enemy(hp: 6, posX: 17, posY: 6, damage: 2, gameMap: map, icon: '#');
+            Enemy enemy5 = new Enemy(hp: 6, posX: 10, posY: 6, damage: 3, gameMap: map, icon: 'R'); //Wasn't 100% sure what you meant by multiple instances of each enemy, hope this is it
 
             List<Enemy> enemies = new List<Enemy>();
             enemies.Add(enemy1);
             enemies.Add(enemy2);
             enemies.Add(enemy3);
-
-            char[] enemyIcons = { '#', 'R', '2' }; // # = Normal, R = Random, 2 = Moves Twice
+            enemies.Add(enemy4);
+            enemies.Add(enemy5);
 
             map.mapColors.Add('*', ConsoleColor.Green);
             map.mapColors.Add('~', ConsoleColor.Blue);
@@ -39,7 +43,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             collectables.CreateHealthMax(map);
 
             map.PrintMap(collectables.gold, collectables.healthUp, collectables.healthMax);
-            DrawPlayers(player, enemies, enemyIcons);
+            DrawPlayers(player, enemies);
 
             hud.ChangeEventLog("Game has started", map);
             while (isPlaying)
@@ -55,7 +59,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     Thread.Sleep(250);
                     enemies[i].Move(player, enemies, i, collectables.gold, collectables.healthUp, collectables.healthMax, enemyIcons, hud);
                     map.PrintMap(collectables.gold, collectables.healthUp, collectables.healthMax);
-                    DrawPlayers(player, enemies, enemyIcons);
+                    DrawPlayers(player, enemies);
                 }
 
                 isPlaying = CheckIfGameOver(player, enemies);
@@ -76,7 +80,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             }
         }
 
-        static void DrawPlayers(Player player, List<Enemy> enemy, char[] enemyIcons)
+        static void DrawPlayers(Player player, List<Enemy> enemy)
         {
             //Player, if statement makes sure player/enemies are alive before drawing
             if (player._health.health > 0)
@@ -97,7 +101,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 {
                     Console.SetCursorPosition(enemy[i]._posX + 1, enemy[i]._posY + 1);
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.Write(enemyIcons[i]);
+                    Console.Write(enemy[i]._icon);
                 }
                 else
                 {

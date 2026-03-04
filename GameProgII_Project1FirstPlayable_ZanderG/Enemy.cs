@@ -14,14 +14,16 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
         public int _posY;
         public int _damage;
         public Map _map;
+        public char _icon;
 
-        public Enemy(int hp, int posX, int posY, int damage, Map gameMap)
+        public Enemy(int hp, int posX, int posY, int damage, Map gameMap, char icon)
         {
             _health = new Health(hp);
             _posX = posX;
             _posY = posY;
             _damage = damage;
             _map = gameMap;
+            _icon = icon;
         }
 
         //SO MANY IF STATEMENTS

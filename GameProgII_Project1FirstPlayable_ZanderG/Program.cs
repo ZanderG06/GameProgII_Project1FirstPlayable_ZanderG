@@ -12,7 +12,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
         static void Main(string[] args)
         {
             Map map = new Map();
-            Collectables gold = new Collectables();
+            Collectables collectables = new Collectables();
 
             Player player = new Player(hp: 10, posX: 0, posY: 0, damage: 1, gameMap: map, lastEncounteredEnemy: 0);
             Enemy enemy1 = new Enemy(hp: 6, posX: 17, posY: 11, damage: 2, gameMap: map);
@@ -31,22 +31,26 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             map.mapColors.Add('+', ConsoleColor.Magenta);
 
             bool isPlaying = true;
-            gold.CreateGold(map);
-            map.PrintMap(gold.gold);
+
+            collectables.CreateGold(map);
+            collectables.CreateHealthUp(map);
+            collectables.CreateHealthMax(map);
+
+            map.PrintMap(collectables.gold, collectables.healthUp, collectables.healthMax);
             DrawPlayers(player, enemies, enemyIcons);
 
             while (isPlaying)
             {
                 map.PrintHUD("Player's Turn", player, enemies);
                 ConsoleKey playerInput = Console.ReadKey(true).Key;
-                player.Move(playerInput, enemies, player, gold.gold);
+                player.Move(playerInput, enemies, player, collectables.gold, collectables.healthUp, collectables.healthMax);
                 
                 for(int i = 0; i < enemies.Count; i++)
                 {
                     map.PrintHUD($"Enemy{i+1}'s Turn", player, enemies);
                     Thread.Sleep(250);
-                    enemies[i].Move(player, enemies, i, gold.gold, enemyIcons);
-                    map.PrintMap(gold.gold);
+                    enemies[i].Move(player, enemies, i, collectables.gold, collectables.healthUp, collectables.healthMax, enemyIcons);
+                    map.PrintMap(collectables.gold, collectables.healthUp, collectables.healthMax);
                     DrawPlayers(player, enemies, enemyIcons);
                 }
 

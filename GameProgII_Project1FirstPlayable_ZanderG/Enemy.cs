@@ -25,7 +25,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
         }
 
         //SO MANY IF STATEMENTS
-        public void Move(Player player, List<Enemy> enemy, int enemyTurn, List<(int, int)> gold, char[] enemyIcons)
+        public void Move(Player player, List<Enemy> enemy, int enemyTurn, List<(int, int)> gold, List<(int, int)> healthUp, List<(int, int)> healthMax, char[] enemyIcons)
         {
             if(_health.health <= 0) return;
 
@@ -47,12 +47,8 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 
                     if (targetX < 0 && _map.mapInGame[_posY][_posX - 1] == '*' || targetX < 0 && _map.mapInGame[_posY][_posX - 1] == '+')
                     {
-                        if (gold.Contains((_posY, _posX - 1))) //Enemies picking up gold is on purpose, their damage can go up like the Player
-                        {
-                            gold.Remove((_posY, _posX - 1));
-                            _damage++;
-                            continue;
-                        }
+                        bool checkItemLeft = CheckForItem(gold, healthUp, healthMax, _posX - 1, _posY); //Enemies picking up items is on purpose
+                        if (checkItemLeft) continue;
                         if (player._posX == _posX - 1 && player._posY == _posY)
                         {
                             player._health.TakeDamage(_damage);
@@ -74,12 +70,8 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     }
                     else if (targetX > 0 && _map.mapInGame[_posY][_posX + 1] == '*' || targetX > 0 && _map.mapInGame[_posY][_posX + 1] == '+')
                     {
-                        if (gold.Contains((_posY, _posX + 1)))
-                        {
-                            gold.Remove((_posY, _posX + 1));
-                            _damage++;
-                            continue;
-                        }
+                        bool checkItemRight = CheckForItem(gold, healthUp, healthMax, _posX + 1, _posY);
+                        if (checkItemRight) continue;
                         if (player._posX == _posX + 1 && player._posY == _posY)
                         {
                             player._health.TakeDamage(_damage);
@@ -101,12 +93,8 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     }
                     else if (targetY < 0 && _map.mapInGame[_posY - 1][_posX] == '*' || targetY < 0 && _map.mapInGame[_posY - 1][_posX] == '+')
                     {
-                        if (gold.Contains((_posY - 1, _posX)))
-                        {
-                            gold.Remove((_posY - 1, _posX));
-                            _damage++;
-                            continue;
-                        }
+                        bool checkItemUp = CheckForItem(gold, healthUp, healthMax, _posX, _posY - 1);
+                        if (checkItemUp) continue;
                         if (player._posX == _posX && player._posY == _posY - 1)
                         {
                             player._health.TakeDamage(_damage);
@@ -128,12 +116,8 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     }
                     else if (targetY > 0 && _map.mapInGame[_posY + 1][_posX] == '*' || targetY > 0 && _map.mapInGame[_posY + 1][_posX] == '+')
                     {
-                        if (gold.Contains((_posY + 1, _posX)))
-                        {
-                            gold.Remove((_posY + 1, _posX));
-                            _damage++;
-                            continue;
-                        }
+                        bool checkItemDown = CheckForItem(gold, healthUp, healthMax, _posX, _posY + 1);
+                        if (checkItemDown) continue;
                         if (player._posX == _posX && player._posY == _posY + 1)
                         {
                             player._health.TakeDamage(_damage);
@@ -165,12 +149,8 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 {
                     if (_posX - 1 >= 0 && (_map.mapInGame[_posY][_posX - 1] == '*' || _map.mapInGame[_posY][_posX - 1] == '+'))
                     {
-                        if (gold.Contains((_posY, _posX - 1)))
-                        {
-                            gold.Remove((_posY, _posX - 1));
-                            _damage++;
-                            return;
-                        }
+                        bool checkItem = CheckForItem(gold, healthUp, healthMax, _posX - 1, _posY); //Enemies picking up items is on purpose
+                        if (checkItem) return;
                         if (player._posX == _posX - 1 && player._posY == _posY)
                         {
                             player._health.TakeDamage(_damage);
@@ -195,12 +175,8 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 {
                     if (_posX + 1 < _map.mapHeight && (_map.mapInGame[_posY][_posX + 1] == '*' || _map.mapInGame[_posY][_posX + 1] == '+'))
                     {
-                        if (gold.Contains((_posY, _posX + 1)))
-                        {
-                            gold.Remove((_posY, _posX + 1));
-                            _damage++;
-                            return;
-                        }
+                        bool checkItem = CheckForItem(gold, healthUp, healthMax, _posX + 1, _posY);
+                        if (checkItem) return;
                         if (player._posX == _posX + 1 && player._posY == _posY)
                         {
                             player._health.TakeDamage(_damage);
@@ -225,12 +201,8 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 {
                     if (_posY - 1 >= 0 && (_map.mapInGame[_posY - 1][_posX] == '*' || _map.mapInGame[_posY - 1][_posX] == '+'))
                     {
-                        if (gold.Contains((_posY - 1, _posX)))
-                        {
-                            gold.Remove((_posY - 1, _posX));
-                            _damage++;
-                            return;
-                        }
+                        bool checkItem = CheckForItem(gold, healthUp, healthMax, _posX, _posY - 1);
+                        if (checkItem) return;
                         if (player._posX == _posX && player._posY == _posY - 1)
                         {
                             player._health.TakeDamage(_damage);
@@ -255,12 +227,8 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 {
                     if (_posY + 1 < _map.mapLength && (_map.mapInGame[_posY + 1][_posX] == '*' || _map.mapInGame[_posY + 1][_posX] == '+'))
                     {
-                        if (gold.Contains((_posY + 1, _posX)))
-                        {
-                            gold.Remove((_posY + 1, _posX));
-                            _damage++;
-                            return;
-                        }
+                        bool checkItem = CheckForItem(gold, healthUp, healthMax, _posX, _posY + 1);
+                        if (checkItem) return;
                         if (player._posX == _posX && player._posY == _posY + 1)
                         {
                             player._health.TakeDamage(_damage);
@@ -282,6 +250,29 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     }
                 }
             }
+        }
+
+        public bool CheckForItem(List<(int, int)> gold, List<(int, int)> healthUp, List<(int, int)> healthMax, int Xpos, int Ypos)
+        {
+            if (gold.Contains((Ypos, Xpos)))
+            {
+                gold.Remove((Ypos, Xpos));
+                _damage++;
+                return true;
+            }
+            if (healthUp.Contains((Ypos, Xpos)))
+            {
+                healthUp.Remove((Ypos, Xpos));
+                _health.Heal(3);
+                return true;
+            }
+            if (healthMax.Contains((Ypos, Xpos)))
+            {
+                healthMax.Remove((Ypos, Xpos));
+                _health.IncreaseMaxHealth();
+                return true;
+            }
+            return false;
         }
     }
 }

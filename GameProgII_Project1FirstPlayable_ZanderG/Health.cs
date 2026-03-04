@@ -17,9 +17,11 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             maxHealth = hp;
         }
 
-        public void Heal()
+        public void Heal(int healAmount)
         {
-            if (health < maxHealth) health++;
+            health += healAmount;
+
+            if (health > maxHealth) health = maxHealth;
         }
 
         public void TakeDamage(int damage)
@@ -27,6 +29,12 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             health -= damage;
 
             if(health < 0) health = 0;
+        }
+
+        public void IncreaseMaxHealth()
+        {
+            maxHealth++;
+            health = maxHealth;
         }
     }
 }

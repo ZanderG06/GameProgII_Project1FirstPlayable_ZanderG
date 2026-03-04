@@ -20,7 +20,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 
         public Dictionary<char, ConsoleColor> mapColors = new Dictionary<char, ConsoleColor>();
 
-        public void PrintMap(List<(int, int)> gold)
+        public void PrintMap(List<(int, int)> gold, List<(int, int)> healthUp, List<(int, int)> healthMax)
         {
             Console.SetCursorPosition(0,0);
 
@@ -53,6 +53,22 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 Console.SetCursorPosition(y + 1, x + 1);
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.Write('$');
+                Console.ResetColor();
+            }
+
+            foreach((int x, int y) in healthUp)
+            {
+                Console.SetCursorPosition(y + 1, x + 1);
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write('3');
+                Console.ResetColor();
+            }
+
+            foreach((int x, int y) in healthMax)
+            {
+                Console.SetCursorPosition(y + 1, x + 1);
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write('%');
                 Console.ResetColor();
             }
         }

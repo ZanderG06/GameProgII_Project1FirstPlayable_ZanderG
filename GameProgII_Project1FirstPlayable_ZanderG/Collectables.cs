@@ -8,9 +8,19 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 {
     internal class Collectables
     {
+        public Random random = new Random();
+
+        //Gold
         public List<(int, int)> gold = new List<(int, int)>();
         public int amountOfGold = 5;
-        public Random random = new Random();
+
+        //Health Up
+        public List<(int, int)> healthUp = new List<(int, int)>();
+        public int amountOfHealthUp = 3;
+
+        //Time Freeze
+        public List<(int, int)> healthMax = new List<(int, int)>();
+        public int amountOfHealthMax = 1;
 
         public void CreateGold(Map gameMap)
         {
@@ -20,7 +30,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 int randomX = random.Next(1, gameMap.mapLength - 1);
                 int randomY = random.Next(1, gameMap.mapHeight - 1);
 
-                //Makes sure gold is actually accessible
+                //Makes sure gold is actually accessible in game
                 if (gameMap.mapInGame[randomX][randomY] != '*')
                 {
                     i--;
@@ -36,6 +46,54 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     }
                 }
                 gold.Add((randomX, randomY));
+            }
+        }
+
+        public void CreateHealthUp(Map gameMap)
+        {
+            for (int i = 0; i < amountOfHealthUp; i++)
+            {
+                int randomX = random.Next(1, gameMap.mapLength - 1);
+                int randomY = random.Next(1, gameMap.mapHeight - 1);
+
+                if (gameMap.mapInGame[randomX][randomY] != '*')
+                {
+                    i--;
+                    continue;
+                }
+                for (int j = 0; j < i; j++)
+                {
+                    if (healthUp.Equals((randomX, randomY)) || gold.Equals((randomX, randomY)))
+                    {
+                        i--;
+                        break;
+                    }
+                }
+                healthUp.Add((randomX, randomY));
+            }
+        }
+
+        public void CreateHealthMax(Map gameMap)
+        {
+            for (int i = 0; i < amountOfHealthMax; i++)
+            {
+                int randomX = random.Next(1, gameMap.mapLength - 1);
+                int randomY = random.Next(1, gameMap.mapHeight - 1);
+
+                if (gameMap.mapInGame[randomX][randomY] != '*')
+                {
+                    i--;
+                    continue;
+                }
+                for (int j = 0; j < i; j++)
+                {
+                    if (healthMax.Equals((randomX, randomY)) || healthUp.Equals((randomX, randomY)) || gold.Equals((randomX, randomY)))
+                    {
+                        i--;
+                        break;
+                    }
+                }
+                healthMax.Add((randomX, randomY));
             }
         }
     }

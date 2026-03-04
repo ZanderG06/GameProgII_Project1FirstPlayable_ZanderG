@@ -24,12 +24,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             Enemy enemy4 = new Enemy(hp: 6, posX: 17, posY: 6, damage: 2, gameMap: map, icon: '#');
             Enemy enemy5 = new Enemy(hp: 6, posX: 10, posY: 6, damage: 3, gameMap: map, icon: 'R'); //Wasn't 100% sure what you meant by multiple instances of each enemy, hope this is it
 
-            List<Enemy> enemies = new List<Enemy>();
-            enemies.Add(enemy1);
-            enemies.Add(enemy2);
-            enemies.Add(enemy3);
-            enemies.Add(enemy4);
-            enemies.Add(enemy5);
+            List<Enemy> enemies = new List<Enemy> { enemy1, enemy2, enemy3, enemy4, enemy5 };
 
             map.mapColors.Add('*', ConsoleColor.Green);
             map.mapColors.Add('~', ConsoleColor.Blue);

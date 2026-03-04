@@ -47,13 +47,13 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                         {
                             gold.Remove((_posY, _posX - 1));
                             _damage++;
-                            break;
+                            continue;
                         }
                         if (player._posX == _posX - 1 && player._posY == _posY)
                         {
                             player._health.TakeDamage(_damage);
                             player._lastEncounteredEnemy = enemyTurn;
-                            break;
+                            continue;
                         }
                         for (int i = 0; i < enemy.Count; i++)
                         {
@@ -74,13 +74,13 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                         {
                             gold.Remove((_posY, _posX + 1));
                             _damage++;
-                            break;
+                            continue;
                         }
                         if (player._posX == _posX + 1 && player._posY == _posY)
                         {
                             player._health.TakeDamage(_damage);
                             player._lastEncounteredEnemy = enemyTurn;
-                            break;
+                            continue;
                         }
                         for (int i = 0; i < enemy.Count; i++)
                         {
@@ -101,13 +101,13 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                         {
                             gold.Remove((_posY - 1, _posX));
                             _damage++;
-                            break;
+                            continue;
                         }
                         if (player._posX == _posX && player._posY == _posY - 1)
                         {
                             player._health.TakeDamage(_damage);
                             player._lastEncounteredEnemy = enemyTurn;
-                            break;
+                            continue;
                         }
                         for (int i = 0; i < enemy.Count; i++)
                         {
@@ -128,13 +128,13 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                         {
                             gold.Remove((_posY + 1, _posX));
                             _damage++;
-                            break;
+                            continue;
                         }
                         if (player._posX == _posX && player._posY == _posY + 1)
                         {
                             player._health.TakeDamage(_damage);
                             player._lastEncounteredEnemy = enemyTurn;
-                            break;
+                            continue;
                         }
                         for (int i = 0; i < enemy.Count; i++)
                         {

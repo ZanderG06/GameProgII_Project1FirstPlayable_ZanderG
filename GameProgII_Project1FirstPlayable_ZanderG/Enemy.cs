@@ -27,318 +27,148 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
         }
 
         //SO MANY IF STATEMENTS
-        public void Move(Player player, List<Enemy> enemy, int enemyTurn, List<(int, int)> gold, List<(int, int)> healthUp, List<(int, int)> healthMax, Hud hud)
+        public virtual void Move(Player player, List<Enemy> enemy, int enemyTurn, List<(int, int)> gold, List<(int, int)> healthUp, List<(int, int)> healthMax, Hud hud)
         {
             if(_health.health <= 0) return;
 
-            int moveAttempts;
+            int targetX = player._posX - _posX;
+            int targetY = player._posY - _posY;
 
-            if(_icon == '2')
+            if (targetX < 0 && _map.mapInGame[_posY][_posX - 1] == '*' || targetX < 0 && _map.mapInGame[_posY][_posX - 1] == '+' || targetX < 0 && _map.mapInGame[_posY][_posX - 1] == '=')
             {
-                Random random = new Random();
-                moveAttempts = random.Next(1, 3);
+                bool checkItemLeft = CheckForItem(gold, healthUp, healthMax, _posX - 1, _posY, hud, enemyTurn); //Enemies picking up items is on purpose
+                if (checkItemLeft) return;
+                if (player._posX == _posX - 1 && player._posY == _posY)
+                {
+                    player._health.TakeDamage(_damage);
+                    player._lastEncounteredEnemy = enemyTurn;
+                    hud.ChangeEventLog($"Enemy{enemyTurn + 1} attacked Player for {_damage} damage", _map);
+                    return;
+                }
+                for (int i = 0; i < enemy.Count; i++)
+                {
+                    if (i == enemyTurn) //Makes it so that the enemy doesn't check for itself when trying to move
+                    {
+                        continue;
+                    }
+                    if (enemy[i]._posX == _posX - 1 && enemy[i]._posY == _posY)
+                    {
+                        break;
+                    }
+                }
+                if (_map.mapInGame[_posY][_posX - 1] == '+')
+                {
+                    _health.Heal(1);
+                    hud.ChangeEventLog($"Enemy{enemyTurn + 1} healed 1 health point", _map);
+                }
+                if (_map.mapInGame[_posY][_posX - 1] == '=')
+                {
+                    _health.TakeDamage(1);
+                    hud.ChangeEventLog($"Enemy{enemyTurn + 1} took 1 damage from Lava", _map);
+                }
+                _posX--;
             }
-            else moveAttempts = 1;
-
-            if (_icon == '#' || _icon == '2')
+            else if (targetX > 0 && _map.mapInGame[_posY][_posX + 1] == '*' || targetX > 0 && _map.mapInGame[_posY][_posX + 1] == '+' || targetX > 0 && _map.mapInGame[_posY][_posX + 1] == '=')
             {
-                for (int j = 0; j < moveAttempts; j++)
+                bool checkItemRight = CheckForItem(gold, healthUp, healthMax, _posX + 1, _posY, hud, enemyTurn);
+                if (checkItemRight) return;
+                if (player._posX == _posX + 1 && player._posY == _posY)
                 {
-                    int targetX = player._posX - _posX;
-                    int targetY = player._posY - _posY;
-
-                    if (targetX < 0 && _map.mapInGame[_posY][_posX - 1] == '*' || targetX < 0 && _map.mapInGame[_posY][_posX - 1] == '+' || targetX < 0 && _map.mapInGame[_posY][_posX - 1] == '=')
+                    player._health.TakeDamage(_damage);
+                    player._lastEncounteredEnemy = enemyTurn;
+                    hud.ChangeEventLog($"Enemy{enemyTurn + 1} attacked Player for {_damage} damage", _map);
+                    return;
+                }
+                for (int i = 0; i < enemy.Count; i++)
+                {
+                    if (i == enemyTurn)
                     {
-                        bool checkItemLeft = CheckForItem(gold, healthUp, healthMax, _posX - 1, _posY, hud, enemyTurn); //Enemies picking up items is on purpose
-                        if (checkItemLeft) continue;
-                        if (player._posX == _posX - 1 && player._posY == _posY)
-                        {
-                            player._health.TakeDamage(_damage);
-                            player._lastEncounteredEnemy = enemyTurn;
-                            hud.ChangeEventLog($"Enemy{enemyTurn + 1} attacked Player for {_damage} damage", _map);
-                            continue;
-                        }
-                        for (int i = 0; i < enemy.Count; i++)
-                        {
-                            if (i == enemyTurn) //Makes it so that the enemy doesn't check for itself when trying to move
-                            {
-                                continue;
-                            }
-                            if (enemy[i]._posX == _posX - 1 && enemy[i]._posY == _posY)
-                            {
-                                break;
-                            }
-                        }
-                        if (_map.mapInGame[_posY][_posX - 1] == '+')
-                        {
-                            _health.Heal(1);
-                            hud.ChangeEventLog($"Enemy{enemyTurn + 1} healed 1 health point", _map);
-                        }
-                        if (_map.mapInGame[_posY][_posX - 1] == '=')
-                        {
-                            _health.TakeDamage(1);
-                            hud.ChangeEventLog($"Enemy{enemyTurn + 1} took 1 damage from Lava", _map);
-                        }
-                        _posX--;
+                        continue;
                     }
-                    else if (targetX > 0 && _map.mapInGame[_posY][_posX + 1] == '*' || targetX > 0 && _map.mapInGame[_posY][_posX + 1] == '+' || targetX > 0 && _map.mapInGame[_posY][_posX + 1] == '=')
+                    if (enemy[i]._posX == _posX + 1 && enemy[i]._posY == _posY)
                     {
-                        bool checkItemRight = CheckForItem(gold, healthUp, healthMax, _posX + 1, _posY, hud, enemyTurn);
-                        if (checkItemRight) continue;
-                        if (player._posX == _posX + 1 && player._posY == _posY)
-                        {
-                            player._health.TakeDamage(_damage);
-                            player._lastEncounteredEnemy = enemyTurn;
-                            hud.ChangeEventLog($"Enemy{enemyTurn + 1} attacked Player for {_damage} damage", _map);
-                            continue;
-                        }
-                        for (int i = 0; i < enemy.Count; i++)
-                        {
-                            if (i == enemyTurn)
-                            {
-                                continue;
-                            }
-                            if (enemy[i]._posX == _posX + 1 && enemy[i]._posY == _posY)
-                            {
-                                break;
-                            }
-                        }
-                        if (_map.mapInGame[_posY][_posX + 1] == '+')
-                        {
-                            _health.Heal(1);
-                            hud.ChangeEventLog($"Enemy{enemyTurn + 1} healed 1 health point", _map);
-                        }
-                        if (_map.mapInGame[_posY][_posX + 1] == '=')
-                        {
-                            _health.TakeDamage(1);
-                            hud.ChangeEventLog($"Enemy{enemyTurn + 1} took 1 damage from Lava", _map);
-                        }
-                        _posX++;
-                    }
-                    else if (targetY < 0 && _map.mapInGame[_posY - 1][_posX] == '*' || targetY < 0 && _map.mapInGame[_posY - 1][_posX] == '+' || targetY < 0 && _map.mapInGame[_posY - 1][_posX] == '=')
-                    {
-                        bool checkItemUp = CheckForItem(gold, healthUp, healthMax, _posX, _posY - 1, hud, enemyTurn);
-                        if (checkItemUp) continue;
-                        if (player._posX == _posX && player._posY == _posY - 1)
-                        {
-                            player._health.TakeDamage(_damage);
-                            player._lastEncounteredEnemy = enemyTurn;
-                            hud.ChangeEventLog($"Enemy{enemyTurn + 1} attacked Player for {_damage} damage", _map);
-                            continue;
-                        }
-                        for (int i = 0; i < enemy.Count; i++)
-                        {
-                            if (i == enemyTurn)
-                            {
-                                continue;
-                            }
-                            if (enemy[i]._posX == _posX && enemy[i]._posY == _posY - 1)
-                            {
-                                break;
-                            }
-                        }
-                        if (_map.mapInGame[_posY-1][_posX] == '+')
-                        {
-                            _health.Heal(1);
-                            hud.ChangeEventLog($"Enemy{enemyTurn + 1} healed 1 health point", _map);
-                        }
-                        if (_map.mapInGame[_posY-1][_posX] == '=')
-                        {
-                            _health.TakeDamage(1);
-                            hud.ChangeEventLog($"Enemy{enemyTurn + 1} took 1 damage from Lava", _map);
-                        }
-                        _posY--;
-                    }
-                    else if (targetY > 0 && _map.mapInGame[_posY + 1][_posX] == '*' || targetY > 0 && _map.mapInGame[_posY + 1][_posX] == '+' || targetY > 0 && _map.mapInGame[_posY + 1][_posX] == '=')
-                    {
-                        bool checkItemDown = CheckForItem(gold, healthUp, healthMax, _posX, _posY + 1, hud, enemyTurn);
-                        if (checkItemDown) continue;
-                        if (player._posX == _posX && player._posY == _posY + 1)
-                        {
-                            player._health.TakeDamage(_damage);
-                            player._lastEncounteredEnemy = enemyTurn;
-                            hud.ChangeEventLog($"Enemy{enemyTurn + 1} attacked Player for {_damage} damage", _map);
-                            continue;
-                        }
-                        for (int i = 0; i < enemy.Count; i++)
-                        {
-                            if (i == enemyTurn)
-                            {
-                                continue;
-                            }
-                            if (enemy[i]._posX == _posX && enemy[i]._posY == _posY + 1)
-                            {
-                                break;
-                            }
-                        }
-                        if (_map.mapInGame[_posY + 1][_posX] == '+')
-                        {
-                            _health.Heal(1);
-                            hud.ChangeEventLog($"Enemy{enemyTurn + 1} healed 1 health point", _map);
-                        }
-                        if (_map.mapInGame[_posY + 1][_posX] == '=')
-                        {
-                            _health.TakeDamage(1);
-                            hud.ChangeEventLog($"Enemy{enemyTurn + 1} took 1 damage from Lava", _map);
-                        }
-                        _posY++;
+                        break;
                     }
                 }
+                if (_map.mapInGame[_posY][_posX + 1] == '+')
+                {
+                    _health.Heal(1);
+                    hud.ChangeEventLog($"Enemy{enemyTurn + 1} healed 1 health point", _map);
+                }
+                if (_map.mapInGame[_posY][_posX + 1] == '=')
+                {
+                    _health.TakeDamage(1);
+                    hud.ChangeEventLog($"Enemy{enemyTurn + 1} took 1 damage from Lava", _map);
+                }
+                _posX++;
             }
-            else
+            else if (targetY < 0 && _map.mapInGame[_posY - 1][_posX] == '*' || targetY < 0 && _map.mapInGame[_posY - 1][_posX] == '+' || targetY < 0 && _map.mapInGame[_posY - 1][_posX] == '=')
             {
-                Random random = new Random();
-
-                int randomDirection = random.Next(4); // 0 = left, 1 = right, 2 = up, 3 = down
-
-                if (randomDirection == 0)
+                bool checkItemUp = CheckForItem(gold, healthUp, healthMax, _posX, _posY - 1, hud, enemyTurn);
+                if (checkItemUp) return;
+                if (player._posX == _posX && player._posY == _posY - 1)
                 {
-                    if (_posX - 1 >= 0 && (_map.mapInGame[_posY][_posX - 1] == '*' || _map.mapInGame[_posY][_posX - 1] == '+' || _map.mapInGame[_posY][_posX - 1] == '='))
+                    player._health.TakeDamage(_damage);
+                    player._lastEncounteredEnemy = enemyTurn;
+                    hud.ChangeEventLog($"Enemy{enemyTurn + 1} attacked Player for {_damage} damage", _map);
+                    return;
+                }
+                for (int i = 0; i < enemy.Count; i++)
+                {
+                    if (i == enemyTurn)
                     {
-                        bool checkItem = CheckForItem(gold, healthUp, healthMax, _posX - 1, _posY, hud, enemyTurn); 
-                        if (checkItem) return;
-                        if (player._posX == _posX - 1 && player._posY == _posY)
-                        {
-                            player._health.TakeDamage(_damage);
-                            player._lastEncounteredEnemy = enemyTurn;
-                            hud.ChangeEventLog($"Enemy{enemyTurn + 1} attacked Player for {_damage} damage", _map);
-                            return;
-                        }
-                        for (int i = 0; i < enemy.Count; i++)
-                        {
-                            if (i == enemyTurn)
-                            {
-                                continue;
-                            }
-                            if (enemy[i]._posX == _posX - 1 && enemy[i]._posY == _posY)
-                            {
-                                return;
-                            }
-                        }
-                        if (_map.mapInGame[_posY][_posX-1] == '+')
-                        {
-                            _health.Heal(1);
-                            hud.ChangeEventLog($"Enemy{enemyTurn + 1} healed 1 health point", _map);
-                        }
-                        if (_map.mapInGame[_posY][_posX-1] == '=')
-                        {
-                            _health.TakeDamage(1);
-                            hud.ChangeEventLog($"Enemy{enemyTurn + 1} took 1 damage from Lava", _map);
-                        }
-                        _posX--;
+                        continue;
+                    }
+                    if (enemy[i]._posX == _posX && enemy[i]._posY == _posY - 1)
+                    {
+                        break;
                     }
                 }
-                else if (randomDirection == 1)
+                if (_map.mapInGame[_posY - 1][_posX] == '+')
                 {
-                    if (_posX + 1 < _map.mapHeight && (_map.mapInGame[_posY][_posX + 1] == '*' || _map.mapInGame[_posY][_posX + 1] == '+' || _map.mapInGame[_posY][_posX + 1] == '='))
+                    _health.Heal(1);
+                    hud.ChangeEventLog($"Enemy{enemyTurn + 1} healed 1 health point", _map);
+                }
+                if (_map.mapInGame[_posY - 1][_posX] == '=')
+                {
+                    _health.TakeDamage(1);
+                    hud.ChangeEventLog($"Enemy{enemyTurn + 1} took 1 damage from Lava", _map);
+                }
+                _posY--;
+            }
+            else if (targetY > 0 && _map.mapInGame[_posY + 1][_posX] == '*' || targetY > 0 && _map.mapInGame[_posY + 1][_posX] == '+' || targetY > 0 && _map.mapInGame[_posY + 1][_posX] == '=')
+            {
+                bool checkItemDown = CheckForItem(gold, healthUp, healthMax, _posX, _posY + 1, hud, enemyTurn);
+                if (checkItemDown) return;
+                if (player._posX == _posX && player._posY == _posY + 1)
+                {
+                    player._health.TakeDamage(_damage);
+                    player._lastEncounteredEnemy = enemyTurn;
+                    hud.ChangeEventLog($"Enemy{enemyTurn + 1} attacked Player for {_damage} damage", _map);
+                    return;
+                }
+                for (int i = 0; i < enemy.Count; i++)
+                {
+                    if (i == enemyTurn)
                     {
-                        bool checkItem = CheckForItem(gold, healthUp, healthMax, _posX + 1, _posY, hud, enemyTurn);
-                        if (checkItem) return;
-                        if (player._posX == _posX + 1 && player._posY == _posY)
-                        {
-                            player._health.TakeDamage(_damage);
-                            player._lastEncounteredEnemy = enemyTurn;
-                            hud.ChangeEventLog($"Enemy{enemyTurn + 1} attacked Player for {_damage} damage", _map);
-                            return;
-                        }
-                        for (int i = 0; i < enemy.Count; i++)
-                        {
-                            if (i == enemyTurn)
-                            {
-                                continue;
-                            }
-                            if (enemy[i]._posX == _posX + 1 && enemy[i]._posY == _posY)
-                            {
-                                return;
-                            }
-                        }
-                        if (_map.mapInGame[_posY][_posX + 1] == '+')
-                        {
-                            _health.Heal(1);
-                            hud.ChangeEventLog($"Enemy{enemyTurn + 1} healed 1 health point", _map);
-                        }
-                        if (_map.mapInGame[_posY][_posX + 1] == '=')
-                        {
-                            _health.TakeDamage(1);
-                            hud.ChangeEventLog($"Enemy{enemyTurn + 1} took 1 damage from Lava", _map);
-                        }
-                        _posX++;
+                        continue;
+                    }
+                    if (enemy[i]._posX == _posX && enemy[i]._posY == _posY + 1)
+                    {
+                        break;
                     }
                 }
-                else if (randomDirection == 2)
+                if (_map.mapInGame[_posY + 1][_posX] == '+')
                 {
-                    if (_posY - 1 >= 0 && (_map.mapInGame[_posY - 1][_posX] == '*' || _map.mapInGame[_posY - 1][_posX] == '+' || _map.mapInGame[_posY - 1][_posX] == '='))
-                    {
-                        bool checkItem = CheckForItem(gold, healthUp, healthMax, _posX, _posY - 1, hud, enemyTurn);
-                        if (checkItem) return;
-                        if (player._posX == _posX && player._posY == _posY - 1)
-                        {
-                            player._health.TakeDamage(_damage);
-                            player._lastEncounteredEnemy = enemyTurn;
-                            hud.ChangeEventLog($"Enemy{enemyTurn + 1} attacked Player for {_damage} damage", _map);
-                            return;
-                        }
-                        for (int i = 0; i < enemy.Count; i++)
-                        {
-                            if (i == enemyTurn)
-                            {
-                                continue;
-                            }
-                            if (enemy[i]._posX == _posX && enemy[i]._posY == _posY - 1)
-                            {
-                                return;
-                            }
-                        }
-                        if (_map.mapInGame[_posY-1][_posX] == '+')
-                        {
-                            _health.Heal(1);
-                            hud.ChangeEventLog($"Enemy{enemyTurn + 1} healed 1 health point", _map);
-                        }
-                        if (_map.mapInGame[_posY-1][_posX] == '=')
-                        {
-                            _health.TakeDamage(1);
-                            hud.ChangeEventLog($"Enemy{enemyTurn + 1} took 1 damage from Lava", _map);
-                        }
-                        _posY--;
-                    }
+                    _health.Heal(1);
+                    hud.ChangeEventLog($"Enemy{enemyTurn + 1} healed 1 health point", _map);
                 }
-                else
+                if (_map.mapInGame[_posY + 1][_posX] == '=')
                 {
-                    if (_posY + 1 < _map.mapLength && (_map.mapInGame[_posY + 1][_posX] == '*' || _map.mapInGame[_posY + 1][_posX] == '+'))
-                    {
-                        bool checkItem = CheckForItem(gold, healthUp, healthMax, _posX, _posY + 1, hud, enemyTurn);
-                        if (checkItem) return;
-                        if (player._posX == _posX && player._posY == _posY + 1)
-                        {
-                            player._health.TakeDamage(_damage);
-                            player._lastEncounteredEnemy = enemyTurn;
-                            hud.ChangeEventLog($"Enemy{enemyTurn + 1} attacked Player for {_damage} damage", _map);
-                            return;
-                        }
-                        for (int i = 0; i < enemy.Count; i++)
-                        {
-                            if (i == enemyTurn)
-                            {
-                                continue;
-                            }
-                            if (enemy[i]._posX == _posX && enemy[i]._posY == _posY + 1)
-                            {
-                                return;
-                            }
-                        }
-                        if (_map.mapInGame[_posY + 1][_posX] == '+')
-                        {
-                            _health.Heal(1);
-                            hud.ChangeEventLog($"Enemy{enemyTurn + 1} healed 1 health point", _map);
-                        }
-                        if (_map.mapInGame[_posY + 1][_posX] == '=')
-                        {
-                            _health.TakeDamage(1);
-                            hud.ChangeEventLog($"Enemy{enemyTurn + 1} took 1 damage from Lava", _map);
-                        }
-                        _posY++;
-                    }
+                    _health.TakeDamage(1);
+                    hud.ChangeEventLog($"Enemy{enemyTurn + 1} took 1 damage from Lava", _map);
                 }
+                _posY++;
             }
         }
 

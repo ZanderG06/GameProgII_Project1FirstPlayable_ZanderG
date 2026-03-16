@@ -19,10 +19,10 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 
             Player player = new Player(hp: 10, posX: 0, posY: 0, damage: 1, gameMap: map, lastEncounteredEnemy: 0);
             Enemy enemy1 = new Enemy(hp: 6, posX: 17, posY: 11, damage: 2, gameMap: map, icon: '#');
-            Enemy enemy2 = new Enemy(hp: 6, posX: 17, posY: 0, damage: 3, gameMap: map, icon: 'R');
-            Enemy enemy3 = new Enemy(hp: 6, posX: 0, posY: 11, damage: 1, gameMap: map, icon: '2'); //Boss Enemy
+            Enemy enemy2 = new RandomEnemy(hp: 6, posX: 17, posY: 0, damage: 3, gameMap: map, icon: 'R');
+            Enemy enemy3 = new QuickEnemy(hp: 6, posX: 0, posY: 11, damage: 1, gameMap: map, icon: '2'); //Boss Enemy
             Enemy enemy4 = new Enemy(hp: 6, posX: 17, posY: 6, damage: 2, gameMap: map, icon: '#');
-            Enemy enemy5 = new Enemy(hp: 6, posX: 10, posY: 6, damage: 3, gameMap: map, icon: 'R'); //Wasn't 100% sure what you meant by multiple instances of each enemy, hope this is it
+            Enemy enemy5 = new RandomEnemy(hp: 6, posX: 10, posY: 6, damage: 3, gameMap: map, icon: 'R'); //Wasn't 100% sure what you meant by multiple instances of each enemy, hope this is it
 
             List<Enemy> enemies = new List<Enemy> { enemy1, enemy2, enemy3, enemy4, enemy5 };
 

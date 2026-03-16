@@ -13,7 +13,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
         {
             Map map = new Map();
             Hud hud = new Hud();
-            Collectables collectables = new Collectables();
+            CollectablesSpawner collectables = new CollectablesSpawner();
 
             char[] enemyIcons = { '#', 'R', '2' }; // # = Normal, R = Random, 2 = Moves Twice
 
@@ -33,11 +33,9 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 
             bool isPlaying = true;
 
-            collectables.CreateGold(map);
-            collectables.CreateHealthUp(map);
-            collectables.CreateHealthMax(map);
+            collectables.GetCollectableLocations(map);
 
-            map.PrintMap(collectables.gold, collectables.healthUp, collectables.healthMax);
+            map.PrintMap(collectables.gold.listOfGold, collectables.healthUp.listOfHealthUp, collectables.healthMax.listOfHealthMax);
             DrawPlayers(player, enemies);
 
             hud.ChangeEventLog("Game has started", map);
@@ -46,14 +44,14 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 hud.PrintHUD("Player's Turn", player, enemies, map);
                 
                 ConsoleKey playerInput = Console.ReadKey(true).Key;
-                player.Move(playerInput, enemies, player, collectables.gold, collectables.healthUp, collectables.healthMax, hud);
+                player.Move(playerInput, enemies, player, collectables.gold.listOfGold, collectables.healthUp.listOfHealthUp, collectables.healthMax.listOfHealthMax, hud);
                 
                 for(int i = 0; i < enemies.Count; i++)
                 {
                     hud.PrintHUD($"Enemy{i+1}'s Turn", player, enemies, map);
                     Thread.Sleep(250);
-                    enemies[i].Move(player, enemies, i, collectables.gold, collectables.healthUp, collectables.healthMax, hud);
-                    map.PrintMap(collectables.gold, collectables.healthUp, collectables.healthMax);
+                    enemies[i].Move(player, enemies, i, collectables.gold.listOfGold, collectables.healthUp.listOfHealthUp, collectables.healthMax.listOfHealthMax, hud);
+                    map.PrintMap(collectables.gold.listOfGold, collectables.healthUp.listOfHealthUp, collectables.healthMax.listOfHealthMax);
                     DrawPlayers(player, enemies);
                 }
 

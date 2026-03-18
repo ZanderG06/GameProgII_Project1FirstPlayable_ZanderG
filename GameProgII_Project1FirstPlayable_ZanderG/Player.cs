@@ -27,7 +27,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             _lastEncounteredEnemy = lastEncounteredEnemy;
         }
 
-        public void Move(ConsoleKey input, List<Enemy> enemy, Player player, List<(int, int)> gold, List<(int, int)> healthUp, List<(int, int)> healthMax, Hud hud)
+        public void Move(ConsoleKey input, List<Enemy> enemy, List<(int, int)> gold, List<(int, int)> healthUp, List<(int, int)> healthMax, Hud hud)
         {
             switch (input)
             {

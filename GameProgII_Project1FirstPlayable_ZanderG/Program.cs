@@ -15,7 +15,6 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             Hud hud = new Hud();
             CollectablesSpawner collectables = new CollectablesSpawner();
 
-            char[] enemyIcons = { '#', 'R', '2' }; // # = Normal, R = Random, 2 = Moves Twice
 
             Player player = new Player(hp: 10, posX: 0, posY: 0, damage: 1, gameMap: map, lastEncounteredEnemy: 0);
             Enemy enemy1 = new Enemy(hp: 6, posX: 17, posY: 11, damage: 2, gameMap: map, icon: '#');
@@ -44,12 +43,12 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 hud.PrintHUD("Player's Turn", player, enemies, map);
                 
                 ConsoleKey playerInput = Console.ReadKey(true).Key;
-                player.Move(playerInput, enemies, player, collectables.gold.listOfGold, collectables.healthUp.listOfHealthUp, collectables.healthMax.listOfHealthMax, hud);
+                player.Move(playerInput, enemies, collectables.gold.listOfGold, collectables.healthUp.listOfHealthUp, collectables.healthMax.listOfHealthMax, hud);
                 
                 for(int i = 0; i < enemies.Count; i++)
                 {
                     hud.PrintHUD($"Enemy{i+1}'s Turn", player, enemies, map);
-                    Thread.Sleep(250);
+                    Thread.Sleep(100);
                     enemies[i].Move(player, enemies, i, collectables.gold.listOfGold, collectables.healthUp.listOfHealthUp, collectables.healthMax.listOfHealthMax, hud);
                     map.PrintMap(collectables.gold.listOfGold, collectables.healthUp.listOfHealthUp, collectables.healthMax.listOfHealthMax);
                     DrawPlayers(player, enemies);

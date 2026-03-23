@@ -29,7 +29,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
         //SO MANY IF STATEMENTS
         public virtual void Move(Player player, List<Enemy> enemy, int enemyTurn, List<(int, int)> gold, List<(int, int)> healthUp, List<(int, int)> healthMax, Hud hud)
         {
-            if(_health.health <= 0) return;
+            if (_health.health <= 0) return;
 
             int targetX = player._posX - _posX;
             int targetY = player._posY - _posY;
@@ -53,7 +53,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     }
                     if (enemy[i]._posX == _posX - 1 && enemy[i]._posY == _posY)
                     {
-                        return;
+                        break;
                     }
                 }
                 if (_map.mapInGame[_posY][_posX - 1] == '+')
@@ -87,7 +87,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     }
                     if (enemy[i]._posX == _posX + 1 && enemy[i]._posY == _posY)
                     {
-                        return;
+                        break;
                     }
                 }
                 if (_map.mapInGame[_posY][_posX + 1] == '+')
@@ -121,7 +121,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     }
                     if (enemy[i]._posX == _posX && enemy[i]._posY == _posY - 1)
                     {
-                        return;
+                        break;
                     }
                 }
                 if (_map.mapInGame[_posY - 1][_posX] == '+')
@@ -155,7 +155,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     }
                     if (enemy[i]._posX == _posX && enemy[i]._posY == _posY + 1)
                     {
-                        return;
+                        break;
                     }
                 }
                 if (_map.mapInGame[_posY + 1][_posX] == '+')
@@ -178,7 +178,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             {
                 gold.Remove((Ypos, Xpos));
                 _damage++;
-                hud.ChangeEventLog($"Enemy{currentEnemy+1} damage went up by 1", _map);
+                hud.ChangeEventLog($"Enemy{currentEnemy + 1} damage went up by 1", _map);
                 return true;
             }
             if (healthUp.Contains((Ypos, Xpos)))

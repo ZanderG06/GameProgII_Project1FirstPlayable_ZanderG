@@ -13,7 +13,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
         public HealthUp healthUp = new HealthUp();
         public HealthMax healthMax = new HealthMax();
 
-        public void GetCollectableLocations(Map gameMap, List<Enemy> enemies)
+        public void GetCollectableLocations(Map gameMap)
         {
             int amountOfCollectables = gold.amountOfGold + healthUp.amountOfHealthUp + healthMax.amountOfHealthMax;
             List<(int, int)> collectableLocations = new List<(int, int)>();
@@ -34,25 +34,14 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 //This loop prevents collectables from spawning on top of eachother
                 for (int j = 0; j < i; j++)
                 {
-                    if (collectableLocations[j].Item1 == randomX && collectableLocations[j].Item2 == randomY)
+                    if (collectableLocations.Equals((randomX, randomY)))
                     {
                         i--;
                         break;
                     }
                 }
-
-                //Prevents items from spawning on enemies
-                for (int j = 0; j < i; j++)
-                {
-                    if (enemies[j]._posX == randomX && enemies[j]._posY == randomY)
-                    {
-                        i--;
-                        break;
-                    }
-                }
-
                 collectableLocations.Add((randomX, randomY));
-                
+
                 //Range check to make sure proper collectables are created
                 if (i <= gold.amountOfGold) gold.Create(randomX, randomY);
                 if (i <= healthUp.amountOfHealthUp + gold.amountOfGold) healthUp.Create(randomX, randomY);

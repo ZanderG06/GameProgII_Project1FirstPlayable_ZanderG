@@ -15,6 +15,8 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             Hud hud = new Hud();
             CollectablesSpawner collectables = new CollectablesSpawner();
 
+            Console.SetWindowSize(map.mapLength + 20, map.mapHeight + 20);
+            Console.SetBufferSize(map.mapLength + 20, map.mapHeight + 20);
 
             Player player = new Player(hp: 10, posX: 0, posY: 0, damage: 1, gameMap: map, lastEncounteredEnemy: 0);
             Enemy enemy1 = new Enemy(hp: 6, posX: 17, posY: 11, damage: 2, gameMap: map, icon: '#');
@@ -23,7 +25,33 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             Enemy enemy4 = new Enemy(hp: 6, posX: 17, posY: 6, damage: 2, gameMap: map, icon: '#');
             Enemy enemy5 = new RandomEnemy(hp: 6, posX: 10, posY: 6, damage: 3, gameMap: map, icon: 'R'); //Wasn't 100% sure what you meant by multiple instances of each enemy, hope this is it
 
-            List<Enemy> enemies = new List<Enemy> { enemy1, enemy2, enemy3, enemy4, enemy5 };
+            List<Enemy> enemies = new List<Enemy>();
+
+            int amountOfStandardEnemies = 25; //Doing a for loop to create the 25 weak enemies
+            Random random = new Random();
+
+            for (int i = 0; i < amountOfStandardEnemies; i++)
+            {
+                int randomX = random.Next(1, map.enemyMaxX);
+                int randomY = random.Next(1, map.enemyMaxY);
+
+                if (map.mapInGame[randomX][randomY] != '*')
+                {
+                    i--;
+                    continue;
+                }
+
+                for (int j = 0; j < i; j++)
+                {
+                    if (enemies[j]._posX == randomX && enemies[j]._posY == randomY)
+                    {
+                        i--;
+                        break;
+                    }
+                }
+
+                enemies.Add(new Enemy(hp: 1, posX: randomX, posY: randomY, damage: 1, gameMap: map, icon: '#'));
+            }
 
             map.mapColors.Add('*', ConsoleColor.Green);
             map.mapColors.Add('~', ConsoleColor.Blue);
@@ -32,7 +60,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 
             bool isPlaying = true;
 
-            collectables.GetCollectableLocations(map);
+            collectables.GetCollectableLocations(map, enemies);
 
             map.PrintMap(collectables.gold.listOfGold, collectables.healthUp.listOfHealthUp, collectables.healthMax.listOfHealthMax);
             DrawPlayers(player, enemies);
@@ -71,7 +99,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 }
             }
         }
-
+        
         static void DrawPlayers(Player player, List<Enemy> enemy)
         {
             //Player, if statement makes sure player/enemies are alive before drawing
@@ -91,7 +119,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             {
                 if (enemy[i]._health.health > 0)
                 {
-                    Console.SetCursorPosition(enemy[i]._posX + 1, enemy[i]._posY + 1);
+                    Console.SetCursorPosition(enemy[i]._posY + 1, enemy[i]._posX + 1);
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write(enemy[i]._icon);
                 }

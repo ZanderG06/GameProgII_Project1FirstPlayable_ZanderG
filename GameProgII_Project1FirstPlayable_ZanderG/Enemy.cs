@@ -53,7 +53,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     }
                     if (enemy[i]._posX == _posX - 1 && enemy[i]._posY == _posY)
                     {
-                        break;
+                        return;
                     }
                 }
                 if (_map.mapInGame[_posY][_posX - 1] == '+')
@@ -87,7 +87,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     }
                     if (enemy[i]._posX == _posX + 1 && enemy[i]._posY == _posY)
                     {
-                        break;
+                        return;
                     }
                 }
                 if (_map.mapInGame[_posY][_posX + 1] == '+')
@@ -121,7 +121,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     }
                     if (enemy[i]._posX == _posX && enemy[i]._posY == _posY - 1)
                     {
-                        break;
+                        return;
                     }
                 }
                 if (_map.mapInGame[_posY - 1][_posX] == '+')
@@ -155,7 +155,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     }
                     if (enemy[i]._posX == _posX && enemy[i]._posY == _posY + 1)
                     {
-                        break;
+                        return;
                     }
                 }
                 if (_map.mapInGame[_posY + 1][_posX] == '+')

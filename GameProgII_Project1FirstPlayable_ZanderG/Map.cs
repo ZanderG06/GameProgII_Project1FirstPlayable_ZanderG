@@ -18,6 +18,10 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
         
         public int mapHeight { get { return mapInGame[0].Length;} }
 
+        public int enemyMaxX { get { return mapLength - 1;} }
+
+        public int enemyMaxY { get { return mapHeight - 3;} }
+
         public Dictionary<char, ConsoleColor> mapColors = new Dictionary<char, ConsoleColor>();
 
         public void PrintMap(List<(int, int)> gold, List<(int, int)> healthUp, List<(int, int)> healthMax)

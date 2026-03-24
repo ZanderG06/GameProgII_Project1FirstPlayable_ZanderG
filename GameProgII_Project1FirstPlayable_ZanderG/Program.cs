@@ -68,10 +68,12 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     if (player._health.health == 0)
                     {
                         Console.WriteLine("Game Over! You lose.");
+                        Console.ReadKey(true);
                     }
                     else
                     {
                         Console.WriteLine("Congratulations! You win!");
+                        Console.ReadKey(true);
                     }
                     Console.ReadKey(true);
                     Console.ReadKey(true);

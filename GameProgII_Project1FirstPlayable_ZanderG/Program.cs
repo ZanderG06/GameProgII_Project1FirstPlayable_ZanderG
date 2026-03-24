@@ -21,7 +21,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             Enemy enemy2 = new RandomEnemy(hp: 6, posX: 17, posY: 0, damage: 3, gameMap: map, icon: 'R');
             Enemy enemy3 = new QuickEnemy(hp: 6, posX: 0, posY: 11, damage: 1, gameMap: map, icon: '2'); //Boss Enemy
             Enemy enemy4 = new Enemy(hp: 6, posX: 17, posY: 6, damage: 2, gameMap: map, icon: '#');
-            Enemy enemy5 = new RandomEnemy(hp: 6, posX: 10, posY: 6, damage: 3, gameMap: map, icon: 'R'); //Wasn't 100% sure what you meant by multiple instances of each enemy, hope this is it
+            Enemy enemy5 = new RandomEnemy(hp: 6, posX: 10, posY: 6, damage: 3, gameMap: map, icon: 'R');
 
             List<Enemy> enemies = new List<Enemy> { enemy1, enemy2, enemy3, enemy4, enemy5 };
 
@@ -44,15 +44,17 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 
                 ConsoleKey playerInput = Console.ReadKey(true).Key;
                 player.Move(playerInput, enemies, collectables.gold.listOfGold, collectables.healthUp.listOfHealthUp, collectables.healthMax.listOfHealthMax, hud);
+                map.PrintMap(collectables.gold.listOfGold, collectables.healthUp.listOfHealthUp, collectables.healthMax.listOfHealthMax);
+                DrawPlayers(player, enemies);
 
                 for (int i = 0; i < enemies.Count; i++)
                 {
                     hud.PrintHUD($"Enemy{i + 1}'s Turn", player, enemies, map);
-                    Thread.Sleep(100);
+                    Thread.Sleep(50);
                     enemies[i].Move(player, enemies, i, collectables.gold.listOfGold, collectables.healthUp.listOfHealthUp, collectables.healthMax.listOfHealthMax, hud);
-                    map.PrintMap(collectables.gold.listOfGold, collectables.healthUp.listOfHealthUp, collectables.healthMax.listOfHealthMax);
-                    DrawPlayers(player, enemies);
                 }
+                map.PrintMap(collectables.gold.listOfGold, collectables.healthUp.listOfHealthUp, collectables.healthMax.listOfHealthMax);
+                DrawPlayers(player, enemies);
 
                 isPlaying = CheckIfGameOver(player, enemies);
 

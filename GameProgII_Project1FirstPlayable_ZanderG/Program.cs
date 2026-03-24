@@ -54,7 +54,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 for (int i = 0; i < enemies.Count; i++)
                 {
                     hud.PrintHUD($"Enemy{i + 1}'s Turn", player, enemies, map);
-                    Thread.Sleep(25);
+                    Thread.Sleep(10);
                     enemies[i].Move(player, enemies, i, collectables.gold.listOfGold, collectables.healthUp.listOfHealthUp, collectables.healthMax.listOfHealthMax, hud);
                 }
                 map.PrintMap(collectables.gold.listOfGold, collectables.healthUp.listOfHealthUp, collectables.healthMax.listOfHealthMax);

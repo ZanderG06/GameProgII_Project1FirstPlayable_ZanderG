@@ -34,6 +34,8 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             int targetX = player._posX - _posX;
             int targetY = player._posY - _posY;
 
+            bool occupied = false;
+
             if (targetX < 0 && _map.mapInGame[_posY][_posX - 1] == '*' || targetX < 0 && _map.mapInGame[_posY][_posX - 1] == '+' || targetX < 0 && _map.mapInGame[_posY][_posX - 1] == '=')
             {
                 bool checkItemLeft = CheckForItem(gold, healthUp, healthMax, _posX - 1, _posY, hud, enemyTurn); //Enemies picking up items is on purpose
@@ -51,11 +53,13 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     {
                         continue;
                     }
-                    if (enemy[i]._posX == _posX - 1 && enemy[i]._posY == _posY)
+                    if (enemy[i]._posX == _posX - 1 || enemy[i]._posX == _posX - 2)
                     {
+                        occupied = true;
                         break;
                     }
                 }
+                if(occupied) return;
                 if (_map.mapInGame[_posY][_posX - 1] == '+')
                 {
                     _health.Heal(1);
@@ -85,11 +89,13 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     {
                         continue;
                     }
-                    if (enemy[i]._posX == _posX + 1 && enemy[i]._posY == _posY)
+                    if (enemy[i]._posX == _posX + 1 || enemy[i]._posX == _posX + 2)
                     {
+                        occupied = true;
                         break;
                     }
                 }
+                if (occupied) return;
                 if (_map.mapInGame[_posY][_posX + 1] == '+')
                 {
                     _health.Heal(1);
@@ -119,11 +125,13 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     {
                         continue;
                     }
-                    if (enemy[i]._posX == _posX && enemy[i]._posY == _posY - 1)
+                    if (enemy[i]._posY == _posY - 1 || enemy[i]._posX == _posY - 2)
                     {
+                        occupied = true;
                         break;
                     }
                 }
+                if (occupied) return;
                 if (_map.mapInGame[_posY - 1][_posX] == '+')
                 {
                     _health.Heal(1);
@@ -153,11 +161,13 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     {
                         continue;
                     }
-                    if (enemy[i]._posX == _posX && enemy[i]._posY == _posY + 1)
+                    if (enemy[i]._posY == _posY + 1 || enemy[i]._posX == _posY + 2)
                     {
+                        occupied = true;
                         break;
                     }
                 }
+                if (occupied) return;
                 if (_map.mapInGame[_posY + 1][_posX] == '+')
                 {
                     _health.Heal(1);

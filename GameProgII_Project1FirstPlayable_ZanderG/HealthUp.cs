@@ -11,7 +11,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
         Random random = new Random();
 
         public List<(int, int)> listOfHealthUp = new List<(int, int)>();
-        public int amountOfHealthUp = 3;
+        public int amountOfHealthUp = 2;
 
         public void Create(int x, int y)
         {

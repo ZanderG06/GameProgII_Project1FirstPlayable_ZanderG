@@ -15,15 +15,19 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
             Hud hud = new Hud();
             CollectablesSpawner collectables = new CollectablesSpawner();
 
+            int numberOfStandardEnemies = 25;
 
             Player player = new Player(hp: 10, posX: 0, posY: 0, damage: 1, gameMap: map, lastEncounteredEnemy: 0);
-            Enemy enemy1 = new Enemy(hp: 6, posX: 17, posY: 11, damage: 2, gameMap: map, icon: '#');
-            Enemy enemy2 = new RandomEnemy(hp: 6, posX: 17, posY: 0, damage: 3, gameMap: map, icon: 'R');
-            Enemy enemy3 = new QuickEnemy(hp: 6, posX: 0, posY: 11, damage: 1, gameMap: map, icon: '2'); //Boss Enemy
-            Enemy enemy4 = new Enemy(hp: 6, posX: 17, posY: 6, damage: 2, gameMap: map, icon: '#');
-            Enemy enemy5 = new RandomEnemy(hp: 6, posX: 10, posY: 6, damage: 3, gameMap: map, icon: 'R');
+            Enemy enemyR1 = new RandomEnemy(hp: 6, posX: 17, posY: 0, damage: 3, gameMap: map, icon: 'R');
+            Enemy quickEnemy = new QuickEnemy(hp: 6, posX: 0, posY: 11, damage: 1, gameMap: map, icon: '2'); //Boss Enemy
+            Enemy enemyR2 = new RandomEnemy(hp: 6, posX: 10, posY: 6, damage: 3, gameMap: map, icon: 'R');
 
-            List<Enemy> enemies = new List<Enemy> { enemy1, enemy2, enemy3, enemy4, enemy5 };
+            List<Enemy> enemies = new List<Enemy> { quickEnemy, enemyR1, enemyR2 };
+
+            for(int i = 0; i < numberOfStandardEnemies; i++)
+            {
+                enemies.Add(new Enemy(hp: 1, posX: 17, posY: 11, damage: 1, gameMap: map, icon: '#')); //Putting all weak enemies in the same spot to mimic a spawner
+            }
 
             map.mapColors.Add('*', ConsoleColor.Green);
             map.mapColors.Add('~', ConsoleColor.Blue);
@@ -50,7 +54,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 for (int i = 0; i < enemies.Count; i++)
                 {
                     hud.PrintHUD($"Enemy{i + 1}'s Turn", player, enemies, map);
-                    Thread.Sleep(50);
+                    Thread.Sleep(25);
                     enemies[i].Move(player, enemies, i, collectables.gold.listOfGold, collectables.healthUp.listOfHealthUp, collectables.healthMax.listOfHealthMax, hud);
                 }
                 map.PrintMap(collectables.gold.listOfGold, collectables.healthUp.listOfHealthUp, collectables.healthMax.listOfHealthMax);

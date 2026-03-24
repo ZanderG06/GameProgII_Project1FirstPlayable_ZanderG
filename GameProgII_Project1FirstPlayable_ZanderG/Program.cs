@@ -74,6 +74,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                         Console.WriteLine("Congratulations! You win!");
                     }
                     Console.ReadKey(true);
+                    Console.ReadKey(true);
                 }
             }
         }

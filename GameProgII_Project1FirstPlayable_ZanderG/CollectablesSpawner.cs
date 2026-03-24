@@ -43,9 +43,9 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 collectableLocations.Add((randomX, randomY));
 
                 //Range check to make sure proper collectables are created
-                if (i <= gold.amountOfGold) gold.Create(randomX, randomY);
-                if (i <= healthUp.amountOfHealthUp + gold.amountOfGold) healthUp.Create(randomX, randomY);
-                if (i > healthUp.amountOfHealthUp + gold.amountOfGold) healthMax.Create(randomX, randomY);
+                if (i < gold.amountOfGold) gold.Create(randomX, randomY);
+                else if (i < healthUp.amountOfHealthUp + gold.amountOfGold) healthUp.Create(randomX, randomY);
+                else if (i == healthUp.amountOfHealthUp + gold.amountOfGold) healthMax.Create(randomX, randomY);
             }
         }
     }

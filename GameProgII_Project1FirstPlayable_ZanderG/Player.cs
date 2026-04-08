@@ -57,6 +57,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                         _health.TakeDamage(1);
                         hud.ChangeEventLog("Player took 1 damage from Lava", _map);
                     }
+                    RefreshTileBehind();
                     _posY--;
                     while(Console.KeyAvailable) Console.ReadKey(true); //Keyboard auto-repeat handling
                     break;
@@ -87,6 +88,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                         _health.TakeDamage(1);
                         hud.ChangeEventLog("Player took 1 damage from Lava", _map);
                     }
+                    RefreshTileBehind();
                     _posY++;
                     while (Console.KeyAvailable) Console.ReadKey(true);
                     break;
@@ -117,6 +119,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                         _health.TakeDamage(1);
                         hud.ChangeEventLog("Player took 1 damage from Lava", _map);
                     }
+                    RefreshTileBehind();
                     _posX--;
                     while (Console.KeyAvailable) Console.ReadKey(true);
                     break;
@@ -147,6 +150,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                         _health.TakeDamage(1);
                         hud.ChangeEventLog("Player took 1 damage from Lava", _map);
                     }
+                    RefreshTileBehind();
                     _posX++;
                     while (Console.KeyAvailable) Console.ReadKey(true);
                     break;
@@ -177,6 +181,14 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 return true;
             }
             return false;
+        }
+
+        private void RefreshTileBehind()
+        {
+            Console.SetCursorPosition(_posX + 1, _posY + 1);
+            Console.ForegroundColor = _map.mapColors[_map.mapInGame[_posY][_posX]];
+            Console.Write(_map.mapInGame[_posY][_posX]);
+            Console.ResetColor();
         }
     }
 }

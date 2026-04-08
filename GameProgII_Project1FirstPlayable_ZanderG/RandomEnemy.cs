@@ -54,6 +54,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                         _health.TakeDamage(1);
                         hud.ChangeEventLog($"Enemy{enemyTurn + 1} took 1 damage from Lava", _map);
                     }
+                    RefreshTileBehind();
                     _posX--;
                 }
             }
@@ -91,6 +92,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                         _health.TakeDamage(1);
                         hud.ChangeEventLog($"Enemy{enemyTurn + 1} took 1 damage from Lava", _map);
                     }
+                    RefreshTileBehind();
                     _posX++;
                 }
             }
@@ -128,6 +130,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                         _health.TakeDamage(1);
                         hud.ChangeEventLog($"Enemy{enemyTurn + 1} took 1 damage from Lava", _map);
                     }
+                    RefreshTileBehind();
                     _posY--;
                 }
             }
@@ -165,6 +168,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                         _health.TakeDamage(1);
                         hud.ChangeEventLog($"Enemy{enemyTurn + 1} took 1 damage from Lava", _map);
                     }
+                    RefreshTileBehind();
                     _posY++;
                 }
             }

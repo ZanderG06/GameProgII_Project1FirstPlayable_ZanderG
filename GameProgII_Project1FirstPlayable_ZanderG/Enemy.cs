@@ -70,6 +70,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     _health.TakeDamage(1);
                     hud.ChangeEventLog($"Enemy{enemyTurn + 1} took 1 damage from Lava", _map);
                 }
+                RefreshTileBehind();
                 _posX--;
             }
             else if (targetX > 0 && _map.mapInGame[_posY][_posX + 1] == '*' || targetX > 0 && _map.mapInGame[_posY][_posX + 1] == '+' || targetX > 0 && _map.mapInGame[_posY][_posX + 1] == '=')
@@ -106,6 +107,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     _health.TakeDamage(1);
                     hud.ChangeEventLog($"Enemy{enemyTurn + 1} took 1 damage from Lava", _map);
                 }
+                RefreshTileBehind();
                 _posX++;
             }
             else if (targetY < 0 && _map.mapInGame[_posY - 1][_posX] == '*' || targetY < 0 && _map.mapInGame[_posY - 1][_posX] == '+' || targetY < 0 && _map.mapInGame[_posY - 1][_posX] == '=')
@@ -142,6 +144,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     _health.TakeDamage(1);
                     hud.ChangeEventLog($"Enemy{enemyTurn + 1} took 1 damage from Lava", _map);
                 }
+                RefreshTileBehind();
                 _posY--;
             }
             else if (targetY > 0 && _map.mapInGame[_posY + 1][_posX] == '*' || targetY > 0 && _map.mapInGame[_posY + 1][_posX] == '+' || targetY > 0 && _map.mapInGame[_posY + 1][_posX] == '=')
@@ -178,6 +181,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                     _health.TakeDamage(1);
                     hud.ChangeEventLog($"Enemy{enemyTurn + 1} took 1 damage from Lava", _map);
                 }
+                RefreshTileBehind();
                 _posY++;
             }
         }
@@ -206,6 +210,14 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 return true;
             }
             return false;
+        }
+
+        public void RefreshTileBehind()
+        {
+            Console.SetCursorPosition(_posX + 1, _posY + 1);
+            Console.ForegroundColor = _map.mapColors[_map.mapInGame[_posY][_posX]];
+            Console.Write(_map.mapInGame[_posY][_posX]);
+            Console.ResetColor();
         }
     }
 }

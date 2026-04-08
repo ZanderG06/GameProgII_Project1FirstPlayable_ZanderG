@@ -52,16 +52,13 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 
                     ConsoleKey playerInput = Console.ReadKey(true).Key;
                     player.Move(playerInput, enemies, collectables.gold.listOfGold, collectables.healthUp.listOfHealthUp, collectables.healthMax.listOfHealthMax, hud);
-                    map.PrintMap(collectables.gold.listOfGold, collectables.healthUp.listOfHealthUp, collectables.healthMax.listOfHealthMax);
                     DrawPlayers(player, enemies);
 
                     for (int i = 0; i < enemies.Count; i++)
                     {
                         hud.PrintHUD($"Enemy{i + 1}'s Turn", player, enemies, map);
-                        Thread.Sleep(10);
                         enemies[i].Move(player, enemies, i, collectables.gold.listOfGold, collectables.healthUp.listOfHealthUp, collectables.healthMax.listOfHealthMax, hud);
                     }
-                    map.PrintMap(collectables.gold.listOfGold, collectables.healthUp.listOfHealthUp, collectables.healthMax.listOfHealthMax);
                     DrawPlayers(player, enemies);
 
                     currentGameLoop = CheckIfGameOver(player, enemies);
@@ -78,10 +75,23 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                         {
                             Console.WriteLine("You win!");
                         }
-                        Console.WriteLine("Play Again? (Y/N)");
-                        ConsoleKey playAgainInput = Console.ReadKey(true).Key;
-                        if (playAgainInput == ConsoleKey.Y) isPlaying = true;
-                        else isPlaying = false;
+                        bool validInput = false;
+
+                        while (!validInput)
+                        {
+                            Console.WriteLine("Play Again? (Y/N)");
+                            ConsoleKey playAgainInput = Console.ReadKey(true).Key;
+                            if (playAgainInput == ConsoleKey.Y)
+                            {
+                                isPlaying = true;
+                                validInput = true;
+                            }
+                            else if (playAgainInput == ConsoleKey.N)
+                            {
+                                isPlaying = false;
+                                validInput = true;
+                            }
+                        }   
                     }
                 }
             }

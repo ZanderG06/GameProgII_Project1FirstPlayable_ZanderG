@@ -23,7 +23,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 
                 Player player = new Player(hp: 10, posX: 0, posY: 0, damage: 1, gameMap: map, lastEncounteredEnemy: 0);
                 Enemy enemyR1 = new RandomEnemy(hp: 6, posX: 17, posY: 0, damage: 3, gameMap: map, icon: 'R');
-                Enemy quickEnemy = new QuickEnemy(hp: 6, posX: 0, posY: 11, damage: 1, gameMap: map, icon: '2'); //Boss Enemy
+                Enemy quickEnemy = new QuickEnemy(hp: 6, posX: 0, posY: 17, damage: 1, gameMap: map, icon: '2'); //Boss Enemy
                 Enemy enemyR2 = new RandomEnemy(hp: 6, posX: 10, posY: 6, damage: 3, gameMap: map, icon: 'R');
 
                 List<Enemy> enemies = new List<Enemy> { quickEnemy, enemyR1, enemyR2 };

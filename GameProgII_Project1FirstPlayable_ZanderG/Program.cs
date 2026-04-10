@@ -19,8 +19,6 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 Hud hud = new Hud();
                 CollectablesSpawner collectables = new CollectablesSpawner();
 
-                int numberOfStandardEnemies = 25;
-
                 Player player = new Player(hp: 10, posX: 0, posY: 0, damage: 1, gameMap: map, lastEncounteredEnemy: 0);
                 Enemy enemyR1 = new RandomEnemy(hp: 6, posX: 17, posY: 0, damage: 3, gameMap: map, icon: 'R');
                 Enemy quickEnemy = new QuickEnemy(hp: 6, posX: 0, posY: 17, damage: 1, gameMap: map, icon: '2'); //Boss Enemy

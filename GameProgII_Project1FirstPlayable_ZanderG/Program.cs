@@ -28,9 +28,9 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
 
                 List<Enemy> enemies = new List<Enemy> { quickEnemy, enemyR1, enemyR2 };
 
-                for (int i = 0; i < numberOfStandardEnemies; i++)
+                for (int i = 0; i < 5; i++)
                 {
-                    enemies.Add(new Enemy(hp: 1, posX: 17, posY: 11, damage: 1, gameMap: map, icon: '#')); //Putting all weak enemies in the same spot to mimic a spawner
+                    for (int j = 0; j < 5; j++) enemies.Add(new Enemy(hp: 1, posX: i+31, posY: j+12, damage: 1, gameMap: map, icon: '#'));
                 }
 
                 map.mapColors.Add('*', ConsoleColor.Green);

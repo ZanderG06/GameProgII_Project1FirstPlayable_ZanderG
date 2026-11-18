@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,6 +13,10 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
     {
         static void Main(string[] args)
         {
+            GameSettings gameSettings = new GameSettings();
+            string jsonString = File.ReadAllText("gameSettings.json");
+            gameSettings = JsonSerializer.Deserialize<GameSettings>(jsonString);
+
             bool isPlaying = true;
 
             while (isPlaying)
@@ -19,7 +25,7 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 Hud hud = new Hud();
                 CollectablesSpawner collectables = new CollectablesSpawner();
 
-                Player player = new Player(hp: 10, posX: 0, posY: 0, damage: 1, gameMap: map, lastEncounteredEnemy: 0);
+                Player player = new Player(hp: gameSettings.playerStartingHP, posX: gameSettings.playerStartingX, posY: gameSettings.playerStartingY, damage: gameSettings.playerStartingDamage, gameMap: map, lastEncounteredEnemy: 0);
                 Enemy enemyR1 = new RandomEnemy(hp: 6, posX: 17, posY: 0, damage: 3, gameMap: map, icon: 'R');
                 Enemy quickEnemy = new QuickEnemy(hp: 6, posX: 0, posY: 17, damage: 1, gameMap: map, icon: '2'); //Boss Enemy
                 Enemy enemyR2 = new RandomEnemy(hp: 6, posX: 10, posY: 6, damage: 3, gameMap: map, icon: 'R');

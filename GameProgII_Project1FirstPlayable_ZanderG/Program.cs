@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace GameProgII_Project1FirstPlayable_ZanderG
 {
@@ -31,11 +27,6 @@ namespace GameProgII_Project1FirstPlayable_ZanderG
                 Enemy enemyR2 = new RandomEnemy(hp: 6, posX: 10, posY: 6, damage: 3, gameMap: map, icon: 'R');
 
                 List<Enemy> enemies = new List<Enemy> { quickEnemy, enemyR1, enemyR2 };
-
-                for (int i = 0; i < 5; i++)
-                {
-                    for (int j = 0; j < 5; j++) enemies.Add(new Enemy(hp: 1, posX: i+31, posY: j+12, damage: 1, gameMap: map, icon: '#'));
-                }
 
                 map.mapColors.Add('*', ConsoleColor.Green);
                 map.mapColors.Add('~', ConsoleColor.Blue);
